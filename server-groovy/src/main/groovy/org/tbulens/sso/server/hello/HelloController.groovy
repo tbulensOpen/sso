@@ -1,12 +1,13 @@
-package org.tbulens.sso.server.hello;
+package org.tbulens.sso.server.hello
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 public class HelloController {
     
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String index() {
         return "Greetings from Spring Boot!";
     }

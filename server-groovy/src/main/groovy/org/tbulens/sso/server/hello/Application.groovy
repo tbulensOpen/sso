@@ -1,4 +1,6 @@
-package org.tbulens.sso.server.hello;
+package org.tbulens.sso.server.hello
+
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
 
@@ -7,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
+@ComponentScan("org.tbulens.sso.server.login")
 public class Application {
     
     public static void main(String[] args) {

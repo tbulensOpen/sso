@@ -22,12 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="gs-spring-boot" />
+        <module name="sso-server-groovy" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gs-spring-boot" target="1.8" />
+      <module name="sso-server-groovy" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
-

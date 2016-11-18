@@ -2,4 +2,5 @@ server-groovy/target/*
 server-groovy/.idea/workspace.xml
 *.iml
 .idea
+.idea/
 

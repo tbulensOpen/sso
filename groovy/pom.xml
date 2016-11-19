@@ -21,14 +21,15 @@
         <gmavenplus-plugin.version>1.2</gmavenplus-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <rabbitmq-jms.version>1.5.0</rabbitmq-jms.version>
     </properties>
 
     <modules>
         <module>sso-client-groovy</module>
         <module>sso-common-groovy</module>
-        <module>sso-rabittmq-groovy</module>
+        <module>sso-rabbitmq-groovy</module>
         <module>sso-redis-groovy</module>
-        <module>sso-server-groovy</module>
+        <module>sso-server-listener-groovy</module>
         <module>sso-login-web-stub-groovy</module>
         <module>sso-logout-web-groovy</module>
         <module>sso-test-app-web-groovy</module>
@@ -45,6 +46,27 @@
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${groovy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-client-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-client-groovy</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-rabbitmq-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rabbitmq.jms</groupId>
+                <artifactId>rabbitmq-jms</artifactId>
+                <version>${rabbitmq-jms.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

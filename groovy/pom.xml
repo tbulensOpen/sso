@@ -18,6 +18,7 @@
         <groovy.version>2.3.7</groovy.version>
         <junit.version>4.11</junit.version>
         <java.version>1.8</java.version>
+        <gmock.version>0.8.2</gmock.version>
         <gmavenplus-plugin.version>1.2</gmavenplus-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -46,6 +47,11 @@
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${groovy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.gmock</groupId>
+                <artifactId>gmock</artifactId>
+                <version>${gmock.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.tbulens.sso</groupId>

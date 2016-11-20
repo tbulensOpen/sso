@@ -1,7 +1,6 @@
 package org.tbulens.sso.login.service
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.tbulens.sso.client.model.LoginRequest
+import org.tbulens.sso.client.login.LoginRequest
 
 class LoginSsoSender {
 

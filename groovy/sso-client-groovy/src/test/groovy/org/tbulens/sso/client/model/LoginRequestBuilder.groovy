@@ -1,6 +1,6 @@
 package org.tbulens.sso.client.model
 
-import org.tbulens.sso.client.model.LoginRequest
+import org.tbulens.sso.client.login.LoginRequest
 
 
 class LoginRequestBuilder {

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 class SsoJmsMessageSender {
     @Autowired  AmqpTemplate amqpTemplate
 
-    void send(String jmsChannel, String json) {
-        amqpTemplate.convertAndSend(jmsChannel, json)
+    String send(String jmsChannel, String json) {
+        amqpTemplate.convertSendAndReceive(jmsChannel, json) as String
     }
 }

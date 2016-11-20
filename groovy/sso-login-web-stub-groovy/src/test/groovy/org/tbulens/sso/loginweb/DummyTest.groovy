@@ -1,4 +1,4 @@
-package org.tbulens.sso.login
+package org.tbulens.sso.loginweb
 
 import org.junit.Test
 

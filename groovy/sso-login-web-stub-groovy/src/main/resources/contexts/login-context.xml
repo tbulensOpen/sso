@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="loginSender" class="org.tbulens.sso.client.login.LoginSenderImpl">
+       <property name="loginQueueChannel" value="myqueue"/>
+       <property name="ssoJmsMessageSender" ref="org.tbulens.sso.rabbitmq.SsoJmsMessageSender"/>
+   </bean>
+
+    <rabbit:connection-factory id="connectionFactory"/>
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <rabbit:queue name="myqueue"/>
+
+</beans>

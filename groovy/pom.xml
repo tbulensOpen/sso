@@ -23,6 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <rabbitmq-jms.version>1.5.0</rabbitmq-jms.version>
+        <spring-boot-starter-thymeleaf.version>1.4.2.RELEASE</spring-boot-starter-thymeleaf.version>
     </properties>
 
     <modules>
@@ -73,6 +74,11 @@
                 <groupId>com.rabbitmq.jms</groupId>
                 <artifactId>rabbitmq-jms</artifactId>
                 <version>${rabbitmq-jms.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot-starter-thymeleaf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

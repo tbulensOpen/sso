@@ -22,6 +22,7 @@
         <dependency>
             <groupId>org.gmock</groupId>
             <artifactId>gmock</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

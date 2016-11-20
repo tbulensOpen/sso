@@ -10,6 +10,6 @@ class LoginRequestTest {
     @Test
     void toJson() {
         String json = new LoginRequestBuilder().build().toJson()
-        assert new JsonUtil().clean(json) == '{"userId":"userA","sessionId":"sessionId","ssoTicket":"ssoToken"}'
+        assert new JsonUtil().clean(json) == '{"userId":"userA","sessionId":"sessionId"}'
     }
 }

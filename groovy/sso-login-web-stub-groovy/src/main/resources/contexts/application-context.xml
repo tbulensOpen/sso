@@ -8,7 +8,10 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="org.tbulens.sso.login"/>
+    <context:component-scan base-package="org.tbulens.sso.loginweb"/>
     <context:component-scan base-package="org.tbulens.sso.client.login"/>
     <context:component-scan base-package="org.tbulens.sso.rabbitmq"/>
+
+    <import resource="classpath:contexts/login-context.xml"/>
+
 </beans>

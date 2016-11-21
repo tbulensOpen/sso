@@ -1,4 +1,4 @@
-package org.tbulens.sso.login.hello;
+package org.tbulens.sso.loginweb.hello;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;

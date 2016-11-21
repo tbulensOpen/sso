@@ -17,7 +17,7 @@ public class LoginController {
 
     @RequestMapping(value = '/secure/login', method = RequestMethod.GET)
     String login() {
-        "login"
+        "login.html"
     }
 
     @RequestMapping(value = "/secure/login", method = RequestMethod.POST)

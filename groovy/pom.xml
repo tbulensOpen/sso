@@ -24,6 +24,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <rabbitmq-jms.version>1.5.0</rabbitmq-jms.version>
         <spring-boot-starter-thymeleaf.version>1.4.2.RELEASE</spring-boot-starter-thymeleaf.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
     </properties>
 
     <modules>
@@ -79,6 +80,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring-boot-starter-thymeleaf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
+                <version>${nekohtml.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

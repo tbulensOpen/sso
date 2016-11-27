@@ -22,9 +22,7 @@ class SsoJmsMessageSenderTest {
     @Ignore
     @Test
     void send() {
-        sender.send(CHANNEL, EXPECTED_MSG)
-
-       String actualMsg = sender.amqpTemplate.receiveAndConvert(CHANNEL)
+       String actualMsg = sender.send("someString")
         assert actualMsg == EXPECTED_MSG
     }
 }

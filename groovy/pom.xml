@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.3.RELEASE</version>
+        <version>1.4.2.RELEASE</version>
     </parent>
 
     <properties>
@@ -25,6 +25,10 @@
         <rabbitmq-jms.version>1.5.0</rabbitmq-jms.version>
         <spring-boot-starter-thymeleaf.version>1.4.2.RELEASE</spring-boot-starter-thymeleaf.version>
         <nekohtml.version>1.9.22</nekohtml.version>
+        <spring-data-redis.version>1.7.5.RELEASE</spring-data-redis.version>
+        <commons-pool2.version>2.4.2</commons-pool2.version>
+        <jedis.version>2.9.0</jedis.version>
+        <spring-boot-starter-data-redis.version>1.4.2.RELEASE</spring-boot-starter-data-redis.version>
     </properties>
 
     <modules>
@@ -44,6 +48,7 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
@@ -72,6 +77,22 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.7.2.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-keyvalue</artifactId>
+                <version>1.1.5.RELEASE</version>
+            </dependency>
+            <dependency>
                 <groupId>com.rabbitmq.jms</groupId>
                 <artifactId>rabbitmq-jms</artifactId>
                 <version>${rabbitmq-jms.version}</version>
@@ -85,6 +106,16 @@
                 <groupId>net.sourceforge.nekohtml</groupId>
                 <artifactId>nekohtml</artifactId>
                 <version>${nekohtml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

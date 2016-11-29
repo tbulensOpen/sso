@@ -18,16 +18,11 @@ import org.springframework.stereotype.Component
 class SsoJmsMessageSender {
     @Autowired  AmqpTemplate amqpTemplate
 
-    int start = 0;
-
-    @Scheduled(fixedDelay = 1000L, initialDelay = 500L)
     String sendAndReceive(String jmsChannel, String json) {
-        System.out.println(" [x] Requesting fib(" + start + ")");
         String response = (String) amqpTemplate.convertSendAndReceive(jmsChannel, "login", json);
         System.out.println(" [.] Got '" + response + "'");
     }
-
-
+    
     String send(String json) {
         amqpTemplate.convertAndSend(json)
         "success"

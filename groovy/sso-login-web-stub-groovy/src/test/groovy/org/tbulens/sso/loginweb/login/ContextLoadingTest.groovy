@@ -12,6 +12,6 @@ class ContextLoadingTest {
     void loadContext() {
         ApplicationContext context =
                 new GenericXmlApplicationContext("classpath:/contexts/application-context.xml");
-        SsoJmsMessageSender sender = context.getBean("ssoJmsMessageSender")
+        assert context.getBean("ssoJmsMessageSender")
     }
 }

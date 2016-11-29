@@ -27,7 +27,6 @@
         <dependency>
             <groupId>org.tbulens.sso</groupId>
             <artifactId>sso-client-groovy</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.rabbitmq.jms</groupId>
@@ -58,6 +57,11 @@
             <artifactId>spring-data-keyvalue</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
@@ -81,6 +85,44 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<version>1.4.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>launch-redis</id>-->
+                        <!--<phase>pre-integration-test</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<executable>redis-server</executable>-->
+                            <!--<arguments>-->
+                                <!--&lt;!&ndash;<argument>${project.basedir}/src/test/redis/redis.conf</argument>&ndash;&gt;-->
+                                <!--<argument>C:/tedwork/Redis/redis.conf</argument>-->
+                                <!--<argument>&#45;&#45;port</argument>-->
+                                <!--<argument>6379</argument>-->
+                            <!--</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>shutdown-redis</id>-->
+                        <!--<phase>post-integration-test</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<executable>redis-cli</executable>-->
+                            <!--<arguments>-->
+                                <!--<argument>-p</argument>-->
+                                <!--<argument>6379</argument>-->
+                                <!--<argument>shutdown</argument>-->
+                            <!--</arguments>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

@@ -77,6 +77,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-redis-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring-boot-starter-data-redis.version}</version>
@@ -116,6 +121,11 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.kualigan.maven.plugins</groupId>
+                <artifactId>redis-maven-plugin</artifactId>
+                <version>1.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

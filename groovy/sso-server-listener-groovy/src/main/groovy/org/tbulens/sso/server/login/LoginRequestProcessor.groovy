@@ -13,17 +13,20 @@ class LoginRequestProcessor {
     @Autowired RedisUtil redisUtil
     @Autowired LoginTicketFactory loginTicketFactory
     @Autowired LoginResultFactory loginResultFactory
+    @Autowired LoginRequestValidator loginRequestValidator
+    JsonUtil jsonUtil = new JsonUtil()
 
     @RabbitListener(queues = "login.rpc.requests")
     // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
     String login(String loginRequestJson) {
-        def jsonSlurper = new JsonSlurper()
-        def loginRequestMap = jsonSlurper.parseText(loginRequestJson)
+        def loginRequestMap = jsonUtil.fromJson(loginRequestJson)
 
-        //todo: validate loginRequestJson, reject if invalid
-        LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap)
-        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
-
-        new JsonUtil().toJson(loginResultFactory.create(loginTicket))
+        int returnValue = loginRequestValidator.validate(loginRequestMap)
+        if (returnValue == LoginRequestValidator.VALID_REQUEST) {
+            LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap)
+            redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+            return loginResultFactory.create(loginTicket).toJson()
+        }
+        null
     }
 }

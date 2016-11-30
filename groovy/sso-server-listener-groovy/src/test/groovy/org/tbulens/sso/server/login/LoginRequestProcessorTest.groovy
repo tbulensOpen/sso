@@ -21,11 +21,10 @@ class LoginRequestProcessorTest {
     @Before
     void setUp() {
         loginRequest = new LoginRequestBuilder().build()
-
     }
 
     @Test
-    void login() {
+    void login_valid() {
         String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
         def result = jsonSlurper.parseText(loginTicketResult)
 
@@ -33,5 +32,12 @@ class LoginRequestProcessorTest {
         assert result.secureCookieId
         assert result.userId == loginRequest.userId
         assert result.sessionId == loginRequest.sessionId
+    }
+
+    @Test
+    void login_invalid() {
+        loginRequest.userId = null
+        String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
+        assert !loginTicketResult
     }
 }

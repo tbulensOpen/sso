@@ -10,7 +10,12 @@ class RedisUtil {
     @Autowired StringRedisTemplate redisTemplate
 
     void push(String key, String value) {
-        ValueOperations values = redisTemplate.opsForValue();
+        ValueOperations values = redisTemplate.opsForValue()
         values.set(key, value);
+    }
+
+    String get(String key) {
+        ValueOperations values = redisTemplate.opsForValue()
+        values.get(key)
     }
 }

@@ -32,12 +32,19 @@ class LoginRequestProcessorTest {
         assert result.secureCookieId
         assert result.userId == loginRequest.userId
         assert result.sessionId == loginRequest.sessionId
+        assert result.statusId == LoginResponse.VALID_REQUEST
     }
 
     @Test
     void login_invalid() {
         loginRequest.userId = null
         String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
-        assert !loginTicketResult
+        def result = jsonSlurper.parseText(loginTicketResult)
+
+        assert result.originalServiceUrl == loginRequest.originalServiceUrl
+        assert result.secureCookieId
+        assert result.userId == loginRequest.userId
+        assert result.sessionId == loginRequest.sessionId
+        assert result.statusId == LoginResponse.BAD_REQUEST
     }
 }

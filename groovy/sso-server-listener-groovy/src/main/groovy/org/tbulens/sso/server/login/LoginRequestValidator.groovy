@@ -10,16 +10,12 @@ class LoginRequestValidator {
     @Autowired RedisUtil redisUtil
     JsonUtil jsonUtil = new JsonUtil()
 
-    final static int VALID_REQUEST = 0
-    final static int BAD_REQUEST = 1
-    final static int USER_ALREADY_LOGGED_IN = 2
-
     int validate(def loginRequestMap) {
         String userId = loginRequestMap.userId
 
-        if (checkBadRequest(loginRequestMap, userId)) return BAD_REQUEST
-        if (checkUserAlreadyLoggedIn(userId)) return USER_ALREADY_LOGGED_IN
-        VALID_REQUEST
+        if (checkBadRequest(loginRequestMap, userId)) return LoginResponse.BAD_REQUEST
+        if (checkUserAlreadyLoggedIn(userId)) return LoginResponse.USER_ALREADY_LOGGED_IN
+        LoginResponse.VALID_REQUEST
     }
 
     private boolean checkBadRequest(def loginRequestMap, String userId) {

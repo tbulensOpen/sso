@@ -2,12 +2,14 @@ package org.tbulens.sso.server.login
 
 import org.tbulens.sso.client.util.JsonUtil
 
-class LoginTicket {
+class LoginTicket implements Serializable {
+    String secureCookieId
     String userId
     String sessionId
     Date createDate
     Date lastAccessed
-    String request
+    Date expiredTime
+    String originalServiceUrl
 
     String toJson() {
         new JsonUtil().toJson(this)

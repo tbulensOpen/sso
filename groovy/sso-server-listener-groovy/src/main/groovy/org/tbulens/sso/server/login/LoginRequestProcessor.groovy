@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.core.ValueOperations
 import org.springframework.stereotype.Component
+import org.tbulens.sso.redis.login.LoginResult
 import org.tbulens.sso.server.redis.RedisUtil
 
 
@@ -13,13 +14,17 @@ import org.tbulens.sso.server.redis.RedisUtil
 class LoginRequestProcessor {
     @Autowired RedisUtil redisUtil
     @Autowired LoginTicketFactory loginTicketFactory
+    @Autowired LoginResultFactory loginResultFactory
 
     @RabbitListener(queues = "login.rpc.requests")
     // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
-    String login(String loginRequestJson) {
-        LoginTicket loginTicket = loginTicketFactory.create(loginRequestJson)
-        redisUtil.push(loginTicket.userId, loginTicket.toJson())
-        System.out.println(" [x] Received request for " + loginRequestJson)
-        loginTicket.userId + ":" + loginTicket.sessionId
+    LoginResult login(String loginRequestJson) {
+        def jsonSlurper = new JsonSlurper()
+        def loginRequestMap = jsonSlurper.parseText(loginRequestJson)
+
+        //todo: validate loginRequestJson, reject if invalid
+        LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap)
+        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+        loginResultFactory.create(loginTicket)
     }
 }

@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component
 @Component
 class LoginTicketFactory {
 
-    LoginTicket create(String loginRequestJson) {
-        def jsonSlurper = new JsonSlurper()
-        def loginRequestMap = jsonSlurper.parseText(loginRequestJson)
-
+    LoginTicket create( def loginRequestMap) {
         String userId = loginRequestMap.userId
         String sessionId = loginRequestMap.sessionId
+        String originalServiceUrl = loginRequestMap.originalServiceUrl
+        UUID uid = UUID.randomUUID()
+        String cookieId = String.valueOf(uid)
 
-        new LoginTicket(userId: userId, sessionId: sessionId, createDate: new Date(), lastAccessed: new Date())
+        new LoginTicket(secureCookieId: cookieId, userId: userId, sessionId: sessionId, createDate: new Date(), lastAccessed: new Date(), originalServiceUrl: originalServiceUrl)
     }
 }

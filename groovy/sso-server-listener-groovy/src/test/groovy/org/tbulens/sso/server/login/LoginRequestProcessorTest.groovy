@@ -9,6 +9,8 @@ import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.tbulens.sso.client.login.LoginRequest
+import org.tbulens.sso.client.model.LoginRequestBuilder
+import org.tbulens.sso.redis.login.LoginResult
 import org.tbulens.sso.server.login.LoginRequestProcessor
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,12 +22,15 @@ class LoginRequestProcessorTest {
 
     @Before
     void setUp() {
-        loginRequest = new LoginRequest(userId: "userId", sessionId: "sessionId")
+        loginRequest = new LoginRequestBuilder().build()
     }
 
     @Test
     void login() {
-        String rt = loginRequestProcessor.login(loginRequest.toJson())
-        assert rt == loginRequest.userId + ":" + loginRequest.sessionId
+        LoginResult result = loginRequestProcessor.login(loginRequest.toJson())
+        assert result.originalServiceUrl == loginRequest.originalServiceUrl
+        assert result.secureCookieId
+        assert result.userId == loginRequest.userId
+        assert result.sessionId == loginRequest.sessionId
     }
 }

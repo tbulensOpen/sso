@@ -1,6 +1,7 @@
-package org.tbulens.sso.redis.login
+package org.tbulens.sso.server.login
 
 import groovy.transform.Canonical
+import org.tbulens.sso.client.util.JsonUtil
 
 class LoginResult implements Serializable {
     String secureCookieId
@@ -8,4 +9,7 @@ class LoginResult implements Serializable {
     String sessionId
     String originalServiceUrl
 
+    String toJson() {
+        new JsonUtil().toJson(this)
+    }
 }

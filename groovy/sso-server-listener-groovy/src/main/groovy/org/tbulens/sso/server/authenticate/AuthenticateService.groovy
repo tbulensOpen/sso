@@ -11,13 +11,14 @@ import org.tbulens.sso.server.redis.RedisUtil
 class AuthenticateService {
     @Autowired RedisUtil redisUtil
     @Autowired AuthenticateRequestValidator requestValidator
+    @Autowired AuthenticateResponseFactory responseFactory
     JsonUtil jsonUtil = new JsonUtil()
 
     AuthenticateResponse process(Map<String, Object> authenticateRequestMap) {
-        String loginTicketJson = redisUtil.get(authenticateRequestMap.userId)
+        String loginTicketJson = redisUtil.get(authenticateRequestMap.secureCookieId)
         LoginTicket loginTicket = loginTicketJson ? jsonUtil.fromJson(loginTicketJson) : null
 
         int status = requestValidator.validate(authenticateRequestMap, loginTicket)
-        new AuthenticateResponse()
+        responseFactory.create(loginTicket, status)
     }
 }

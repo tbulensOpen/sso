@@ -9,8 +9,12 @@ class LoginTicket implements Serializable {
     Date createDate
     Date lastAccessed
     Date expiredTime
-    String originalServiceUrl
-    String requestTicket
+    // key: originalServiceUrl, value: request ticket
+    Map<String, String> services = [:]
+
+    void addService(String key, String value) {
+        services.put(key, value)
+    }
 
     String toJson() {
         new JsonUtil().toJson(this)

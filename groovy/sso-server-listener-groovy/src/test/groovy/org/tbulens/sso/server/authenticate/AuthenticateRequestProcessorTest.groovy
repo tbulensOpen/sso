@@ -47,14 +47,29 @@ class AuthenticateRequestProcessorTest {
         assert authenticateResponseMap.requestTicket != authenticateRequest.requestTicket
         assert authenticateResponseMap.requestTicket.contains("RT_")
         assert authenticateResponseMap.statusId == AuthenticateResponse.AUTHENTICATED
+        assert authenticateResponseMap.originalServiceUrl == authenticateRequest.originalServiceUrl
 
         LoginTicket loginTicketUpdated = loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
-        assert loginTicketUpdated.requestTicket == authenticateResponseMap.requestTicket
+        assert authenticateResponseMap.requestTicket == loginTicketUpdated.services[authenticateRequest.originalServiceUrl]
     }
 
     @Test
     void process_valid_secondApp() {
-        assert true
+        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+
+        authenticateRequest.requestTicket = null
+        authenticateRequest.originalServiceUrl = authenticateRequest.originalServiceUrl + "2"
+        String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
+
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+
+        assert authenticateResponseMap.statusId == AuthenticateResponse.AUTHENTICATED
+        LoginTicket loginTicketUpdated = loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
+
+        assert authenticateResponseMap.originalServiceUrl == authenticateRequest.originalServiceUrl
+        assert  loginTicketUpdated.services[authenticateRequest.originalServiceUrl] == authenticateResponseMap.requestTicket
+
+
     }
 
     @Test
@@ -70,6 +85,4 @@ class AuthenticateRequestProcessorTest {
         assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
 
     }
-
-
 }

@@ -22,15 +22,16 @@ class AuthenticateService {
         LoginTicket loginTicket = loginTicketFactory.createFromSecureCookie(secureCookieId)
 
         int status = requestValidator.validate(authenticateRequestMap, loginTicket)
-        AuthenticateResponse response = responseFactory.create(loginTicket, status)
+        AuthenticateResponse response = responseFactory.create(loginTicket, status, authenticateRequestMap)
 
         //todo: convert switch into processors, retrieve processor using a factory
         switch (status) {
             case AuthenticateResponse.AUTHENTICATED:
-                loginTicket.requestTicket = response.requestTicket
+                loginTicket.services.put(authenticateRequestMap.originalServiceUrl as String, response.requestTicket)
                 redisUtil.push(secureCookieId, loginTicket.toJson())
                 break
             case AuthenticateResponse.BAD_REQUEST:
+                forceLogout.logout(secureCookieId)
                 //todo: what to do here
                 break
             case AuthenticateResponse.NOT_AUTHENTICATED:
@@ -41,6 +42,7 @@ class AuthenticateService {
                 forceLogout.logout(secureCookieId)
                 break
             case AuthenticateResponse.TICKET_EXPIRED:
+                forceLogout.logout(secureCookieId)
                 //todo: what to do here
                 break
             default:

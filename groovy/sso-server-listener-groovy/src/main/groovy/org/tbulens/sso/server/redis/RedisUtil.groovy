@@ -20,6 +20,6 @@ class RedisUtil {
     }
 
     void delete(String key) {
-        redisTemplate.delete(key)
+        redisTemplate.hasKey(key) ?  redisTemplate.delete(key) : null
     }
 }

@@ -18,6 +18,7 @@ class LoginRequestProcessorTest {
 
     @Autowired LoginRequestProcessor loginRequestProcessor
     @Autowired RedisUtil redisUtil
+    @Autowired LoginTicketFactory loginTicketFactory
 
     LoginRequest loginRequest
     JsonSlurper jsonSlurper = new JsonSlurper()
@@ -30,16 +31,16 @@ class LoginRequestProcessorTest {
     @Test
     void login_valid() {
         String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
-        def result = jsonSlurper.parseText(loginTicketResult)
+        def loginResponse = jsonSlurper.parseText(loginTicketResult)
 
-        assert result.originalServiceUrl == loginRequest.originalServiceUrl
-        assert result.secureCookieId
-        assert result.userId == loginRequest.userId
-        assert result.sessionId == loginRequest.sessionId
-        assert result.statusId == LoginResponse.VALID_REQUEST
-        assert result.requestTicket.contains("RT_")
+        assert loginResponse.originalServiceUrl == loginRequest.originalServiceUrl
+        assert loginResponse.secureCookieId
+        assert loginResponse.userId == loginRequest.userId
+        assert loginResponse.sessionId == loginRequest.sessionId
+        assert loginResponse.statusId == LoginResponse.VALID_REQUEST
+        assert loginResponse.requestTicket.contains("RT_")
 
-        assertLoginTicket(result.secureCookieId)
+        assertLoginTicket(loginResponse.secureCookieId)
     }
 
     @Test
@@ -57,14 +58,13 @@ class LoginRequestProcessorTest {
     }
 
     private void assertLoginTicket(String secureCookieId) {
-        String loginTicketJson = redisUtil.get(secureCookieId)
-        def loginTicketMap = jsonSlurper.parseText(loginTicketJson)
+        LoginTicket loginTicketUpdated = loginTicketFactory.createFromSecureCookie(secureCookieId)
 
-        assert loginTicketMap.originalServiceUrl == loginRequest.originalServiceUrl
-        assert loginTicketMap.secureCookieId
-        assert loginTicketMap.userId == loginRequest.userId
-        assert loginTicketMap.sessionId == loginRequest.sessionId
-        assert loginTicketMap.requestTicket.contains("RT_")
-        assert loginTicketMap.expiredTime
+        assert loginTicketUpdated.secureCookieId
+        assert loginTicketUpdated.userId == loginRequest.userId
+        assert loginTicketUpdated.sessionId == loginRequest.sessionId
+        assert loginTicketUpdated.expiredTime
+
+        assert loginTicketUpdated.services[loginRequest.originalServiceUrl]
     }
 }

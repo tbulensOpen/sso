@@ -9,11 +9,12 @@ import org.tbulens.sso.server.login.LoginTicket
 class AuthenticateResponseFactory {
     TicketGenerator ticketGenerator = new TicketGenerator()
 
-    protected AuthenticateResponse create(LoginTicket loginTicket, int statusId) {
+    protected AuthenticateResponse create(LoginTicket loginTicket, int statusId, Map<String, Object> authenticateRequestMap) {
         AuthenticateResponse response = new AuthenticateResponse()
         response.sessionId = loginTicket.sessionId
         response.secureCookieId = loginTicket.secureCookieId
         response.statusId = statusId
+        response.originalServiceUrl = authenticateRequestMap.originalServiceUrl
 
         response.requestTicket =  statusId != AuthenticateResponse.AUTHENTICATED ?: ticketGenerator.generateRequestTicket()
         response

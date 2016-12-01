@@ -18,6 +18,6 @@ class LoginService {
         if (status == LoginResponse.VALID_REQUEST) {
             redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
         }
-        return loginResponseFactory.create(loginTicket, status)
+        return loginResponseFactory.create(loginTicket, status, loginRequestMap)
     }
 }

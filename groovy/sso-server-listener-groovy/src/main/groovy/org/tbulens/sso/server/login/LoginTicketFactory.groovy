@@ -31,7 +31,6 @@ class LoginTicketFactory {
     protected LoginTicket create(Map<String, Object> loginRequestMap, int statusId) {
         String userId = loginRequestMap.userId
         String sessionId = loginRequestMap.sessionId
-        String originalServiceUrl = loginRequestMap.originalServiceUrl
         String cookieId = ticketGenerator.generateTicket()
 
         DateTime expirationDate = new DateTime().plusSeconds(Integer.valueOf(ticketExpirationInSeconds))
@@ -41,8 +40,12 @@ class LoginTicketFactory {
             requestTicket = ticketGenerator.generateRequestTicket()
         }
 
+        String key = loginRequestMap.originalServiceUrl as String
+        Map<String, String> services = [:]
+        services.put(key, requestTicket)
+
         new LoginTicket(secureCookieId: cookieId, userId: userId, sessionId: sessionId, createDate: new Date(),
-                lastAccessed: new Date(), originalServiceUrl: originalServiceUrl, requestTicket: requestTicket, expiredTime: expirationDate.toDate())
+                lastAccessed: new Date(), expiredTime: expirationDate.toDate(), services: services)
     }
 
 
@@ -51,11 +54,10 @@ class LoginTicketFactory {
         ticket.secureCookieId = loginTicketMap.secureCookieId
         ticket.userId = loginTicketMap.userId
         ticket.sessionId = loginTicketMap.sessionId
-        ticket.originalServiceUrl = loginTicketMap.originalServiceUrl
-        ticket.requestTicket = loginTicketMap.requestTicket
         ticket.expiredTime = DateConverter.convertFromJson(loginTicketMap.expiredTime)
         ticket.createDate = DateConverter.convertFromJson(loginTicketMap.createDate)
         ticket.lastAccessed = DateConverter.convertFromJson(loginTicketMap.lastAccessed)
+        ticket.services = loginTicketMap.services as Map<String, String>
         ticket
     }
 }

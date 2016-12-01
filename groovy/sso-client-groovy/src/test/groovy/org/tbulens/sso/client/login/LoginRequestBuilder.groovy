@@ -1,8 +1,5 @@
 package org.tbulens.sso.client.login
 
-import org.tbulens.sso.client.login.LoginRequest
-
-
 class LoginRequestBuilder {
     String sessionId = "sessionId"
     String userId = "userA"

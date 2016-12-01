@@ -14,6 +14,7 @@ class AuthenticateResponse {
     String sessionId
     String requestTicket
     int statusId
+    String originalServiceUrl
 
     String toJson() {
         new JsonUtil().toJson(this)

@@ -10,7 +10,7 @@ class LoginRequestValidator {
     @Autowired RedisUtil redisUtil
     JsonUtil jsonUtil = new JsonUtil()
 
-    int validate(def loginRequestMap) {
+    protected int validate(def loginRequestMap) {
         String userId = loginRequestMap.userId
 
         if (checkBadRequest(loginRequestMap, userId)) return LoginResponse.BAD_REQUEST

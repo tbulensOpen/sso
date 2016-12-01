@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 class LoginTicketFactory {
 
-    LoginTicket create( def loginRequestMap) {
+    protected LoginTicket create( def loginRequestMap) {
         String userId = loginRequestMap.userId
         String sessionId = loginRequestMap.sessionId
         String originalServiceUrl = loginRequestMap.originalServiceUrl

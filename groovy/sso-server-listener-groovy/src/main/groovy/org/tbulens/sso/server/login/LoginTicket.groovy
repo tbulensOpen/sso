@@ -1,5 +1,6 @@
 package org.tbulens.sso.server.login
 
+import org.joda.time.DateTime
 import org.tbulens.sso.client.util.JsonUtil
 
 class LoginTicket implements Serializable {

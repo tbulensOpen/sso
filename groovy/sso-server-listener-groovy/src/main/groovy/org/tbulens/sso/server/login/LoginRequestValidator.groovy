@@ -27,6 +27,6 @@ class LoginRequestValidator {
     }
 
     private boolean checkUserAlreadyLoggedIn(String userId) {
-        redisUtil.get(userId)
+        redisUtil.get(userId) != null
     }
 }

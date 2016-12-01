@@ -10,12 +10,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.model.LoginRequestBuilder
+import org.tbulens.sso.server.redis.RedisUtil
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations=["classpath:contexts/sso-server-application-context.xml"])
 class LoginRequestProcessorTest {
 
     @Autowired LoginRequestProcessor loginRequestProcessor
+    @Autowired RedisUtil redisUtil
+
     LoginRequest loginRequest
     JsonSlurper jsonSlurper = new JsonSlurper()
 
@@ -35,6 +38,8 @@ class LoginRequestProcessorTest {
         assert result.sessionId == loginRequest.sessionId
         assert result.statusId == LoginResponse.VALID_REQUEST
         assert result.requestTicket.contains("RT_")
+
+        assertLoginTicket(result.secureCookieId)
     }
 
     @Test
@@ -49,5 +54,17 @@ class LoginRequestProcessorTest {
         assert result.sessionId == loginRequest.sessionId
         assert result.statusId == LoginResponse.BAD_REQUEST
         assert !result.requestTicket
+    }
+
+    private void assertLoginTicket(String secureCookieId) {
+        String loginTicketJson = redisUtil.get(secureCookieId)
+        def loginTicketMap = jsonSlurper.parseText(loginTicketJson)
+
+        assert loginTicketMap.originalServiceUrl == loginRequest.originalServiceUrl
+        assert loginTicketMap.secureCookieId
+        assert loginTicketMap.userId == loginRequest.userId
+        assert loginTicketMap.sessionId == loginRequest.sessionId
+        assert loginTicketMap.requestTicket.contains("RT_")
+        assert loginTicketMap.expiredTime
     }
 }

@@ -7,6 +7,7 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
+    <context:property-placeholder location="classpath:application.properties"/>
 
     <import resource="classpath:contexts/RedisContext.xml"/>
 

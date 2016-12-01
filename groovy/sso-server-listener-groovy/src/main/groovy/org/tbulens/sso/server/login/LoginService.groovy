@@ -12,7 +12,7 @@ class LoginService {
     @Autowired LoginResponseFactory loginResponseFactory
     @Autowired LoginRequestValidator loginRequestValidator
 
-    protected LoginResponse process(def loginRequestMap) {
+    protected LoginResponse process(Map<String, Object> loginRequestMap) {
         int status = loginRequestValidator.validate(loginRequestMap)
         LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap, status)
         if (status == LoginResponse.VALID_REQUEST) {

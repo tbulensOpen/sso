@@ -65,7 +65,7 @@ class LoginRequestProcessorTest {
 
     @Test
     void login_invalid() {
-        loginRequest.userId = null
+        loginRequest.sessionId = null
         String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
         def result = jsonSlurper.parseText(loginTicketResult)
 

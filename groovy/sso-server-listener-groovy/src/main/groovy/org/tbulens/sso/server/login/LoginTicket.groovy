@@ -19,4 +19,8 @@ class LoginTicket implements Serializable {
     String toJson() {
         new JsonUtil().toJson(this)
     }
+
+    boolean isExpired() {
+        false
+    }
 }

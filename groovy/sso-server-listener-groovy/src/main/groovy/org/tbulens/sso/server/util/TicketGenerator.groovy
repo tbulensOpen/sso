@@ -1,4 +1,4 @@
-package org.tbulens.sso.server
+package org.tbulens.sso.server.util
 
 
 class TicketGenerator {

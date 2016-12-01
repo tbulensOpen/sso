@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.util.JsonUtil
-import org.tbulens.sso.server.TicketGenerator
+import org.tbulens.sso.server.util.TicketGenerator
 import org.tbulens.sso.server.redis.RedisUtil
 import org.tbulens.sso.server.util.DateConverter
 

@@ -59,7 +59,16 @@ class AuthenticateRequestProcessorTest {
 
     @Test
     void process_invalid_unauthorized() {
-        assert true
+        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+
+        authenticateRequest.requestTicket = "invalidRequestTicket"
+        String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
+
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+
+        assert authenticateResponseMap.statusId == AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION
+        assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
+
     }
 
 

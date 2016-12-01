@@ -18,4 +18,8 @@ class RedisUtil {
         ValueOperations values = redisTemplate.opsForValue()
         values.get(key)
     }
+
+    void delete(String key) {
+        redisTemplate.delete(key)
+    }
 }

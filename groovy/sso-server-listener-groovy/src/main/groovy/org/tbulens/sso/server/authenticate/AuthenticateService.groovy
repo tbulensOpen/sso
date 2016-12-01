@@ -6,6 +6,7 @@ import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketFactory
+import org.tbulens.sso.server.logout.ForceLogout
 import org.tbulens.sso.server.redis.RedisUtil
 
 @Component
@@ -14,6 +15,7 @@ class AuthenticateService {
     @Autowired AuthenticateRequestValidator requestValidator
     @Autowired AuthenticateResponseFactory responseFactory
     @Autowired LoginTicketFactory loginTicketFactory
+    @Autowired ForceLogout forceLogout
 
     protected AuthenticateResponse process(Map<String, Object> authenticateRequestMap) {
         String secureCookieId = authenticateRequestMap.secureCookieId
@@ -36,6 +38,7 @@ class AuthenticateService {
                 break
             case AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION:
                 //todo: what to do here
+                forceLogout.logout(secureCookieId)
                 break
             case AuthenticateResponse.TICKET_EXPIRED:
                 //todo: what to do here

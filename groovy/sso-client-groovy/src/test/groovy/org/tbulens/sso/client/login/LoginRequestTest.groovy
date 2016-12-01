@@ -1,7 +1,7 @@
-package org.tbulens.sso.client.model
+package org.tbulens.sso.client.login
 
 import org.junit.Test
-import org.tbulens.sso.client.model.LoginRequestBuilder
+import org.tbulens.sso.client.login.LoginRequestBuilder
 import org.tbulens.sso.client.util.JsonUtil
 
 

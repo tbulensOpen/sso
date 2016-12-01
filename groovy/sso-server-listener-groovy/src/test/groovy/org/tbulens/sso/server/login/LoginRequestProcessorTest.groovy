@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
-import org.tbulens.sso.client.model.LoginRequestBuilder
+import org.tbulens.sso.client.login.LoginRequestBuilder
 import org.tbulens.sso.server.redis.RedisUtil
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -3,7 +3,6 @@ package org.tbulens.sso.client.login
 import org.gmock.WithGMock
 import org.junit.Before
 import org.junit.Test
-import org.tbulens.sso.client.model.LoginRequestBuilder
 import org.tbulens.sso.rabbitmq.SsoJmsMessageSender
 
 @WithGMock

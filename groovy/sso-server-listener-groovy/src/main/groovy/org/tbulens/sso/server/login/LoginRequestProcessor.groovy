@@ -13,7 +13,7 @@ class LoginRequestProcessor {
     @RabbitListener(queues = "login.rpc.requests")
     // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
     String login(String loginRequestJson) {
-        def loginRequestMap = jsonUtil.fromJson(loginRequestJson)
+        Map<String, Object> loginRequestMap = jsonUtil.fromJson(loginRequestJson)
         loginService.process(loginRequestMap).toJson()
     }
 }

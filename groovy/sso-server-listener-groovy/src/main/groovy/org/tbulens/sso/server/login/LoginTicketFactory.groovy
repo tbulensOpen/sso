@@ -10,7 +10,7 @@ import org.tbulens.sso.client.login.LoginResponse
 class LoginTicketFactory {
     @Value('${ticketExpirationInSeconds}') String ticketExpirationInSeconds
 
-    protected LoginTicket create( def loginRequestMap, int status) {
+    protected LoginTicket create( Map<String, Object> loginRequestMap, int status) {
         String userId = loginRequestMap.userId
         String sessionId = loginRequestMap.sessionId
         String originalServiceUrl = loginRequestMap.originalServiceUrl

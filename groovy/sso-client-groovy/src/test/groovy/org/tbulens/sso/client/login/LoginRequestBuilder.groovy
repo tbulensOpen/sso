@@ -1,4 +1,4 @@
-package org.tbulens.sso.client.model
+package org.tbulens.sso.client.login
 
 import org.tbulens.sso.client.login.LoginRequest
 

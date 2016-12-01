@@ -68,8 +68,6 @@ class AuthenticateRequestProcessorTest {
 
         assert authenticateResponseMap.originalServiceUrl == authenticateRequest.originalServiceUrl
         assert  loginTicketUpdated.services[authenticateRequest.originalServiceUrl] == authenticateResponseMap.requestTicket
-
-
     }
 
     @Test
@@ -83,6 +81,5 @@ class AuthenticateRequestProcessorTest {
 
         assert authenticateResponseMap.statusId == AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION
         assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
-
     }
 }

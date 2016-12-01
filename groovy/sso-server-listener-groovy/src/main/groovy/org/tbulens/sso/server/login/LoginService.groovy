@@ -16,8 +16,14 @@ class LoginService {
         int status = loginRequestValidator.validate(loginRequestMap)
         LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap, status)
         if (status == LoginResponse.VALID_REQUEST) {
-            redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+            saveUser(loginTicket)
         }
         return loginResponseFactory.create(loginTicket, status, loginRequestMap)
+    }
+
+    private void saveUser(LoginTicket loginTicket) {
+        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+        redisUtil.push(loginTicket.userId, loginTicket.secureCookieId)
+
     }
 }

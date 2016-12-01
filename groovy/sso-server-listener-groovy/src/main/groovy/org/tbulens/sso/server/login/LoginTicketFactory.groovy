@@ -31,13 +31,14 @@ class LoginTicketFactory {
     protected LoginTicket create(Map<String, Object> loginRequestMap, int statusId) {
         String userId = loginRequestMap.userId
         String sessionId = loginRequestMap.sessionId
-        String cookieId = ticketGenerator.generateTicket()
+        String cookieId = ""
 
         DateTime expirationDate = new DateTime().plusSeconds(Integer.valueOf(ticketExpirationInSeconds))
 
         String requestTicket = null
         if (statusId == LoginResponse.VALID_REQUEST) {
             requestTicket = ticketGenerator.generateRequestTicket()
+            cookieId = ticketGenerator.generateTicket()
         }
 
         String key = loginRequestMap.originalServiceUrl as String

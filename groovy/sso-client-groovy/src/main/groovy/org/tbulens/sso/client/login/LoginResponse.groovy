@@ -1,4 +1,4 @@
-package org.tbulens.sso.server.login
+package org.tbulens.sso.client.login
 
 import groovy.transform.Canonical
 import org.tbulens.sso.client.util.JsonUtil

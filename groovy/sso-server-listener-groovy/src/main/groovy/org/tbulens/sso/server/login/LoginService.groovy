@@ -2,6 +2,7 @@ package org.tbulens.sso.server.login
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.server.redis.RedisUtil
 
 @Component

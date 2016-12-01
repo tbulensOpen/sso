@@ -8,6 +8,7 @@ class AuthenticateResponse {
     final static int BAD_REQUEST = 1
     final static int NOT_AUTHENTICATED = 2
     final static int NOT_AUTHORIZED_SECURITY_VIOLATION = 3
+    final static int TICKET_EXPIRED = 4
 
     String secureCookieId
     String sessionId

@@ -1,5 +1,6 @@
 package org.tbulens.sso.server.login
 
+import org.tbulens.sso.client.authenticate.AuthenticateRequest
 import org.tbulens.sso.client.login.LoginRequest
 
 
@@ -23,5 +24,12 @@ class LoginTicketBuilder {
         loginTicket.expiredTime = expiredTime
         loginTicket.requestTicket = requestTicket
         loginTicket
+    }
+
+    LoginTicketBuilder withAuthenticateRequest(AuthenticateRequest authenticateRequest) {
+        secureCookieId = authenticateRequest.secureCookieId
+        sessionId = authenticateRequest.sessionId
+        requestTicket = authenticateRequest.requestTicket
+        this
     }
 }

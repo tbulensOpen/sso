@@ -20,7 +20,19 @@ class AuthenticateRequestProcessorTest {
     }
 
     @Test
-    void process() {
+    void process_valid_oneApp() {
       assert true
     }
+
+    @Test
+    void process_valid_secondApp() {
+      assert true
+    }
+
+    @Test
+    void process_invalid_unauthorized() {
+      assert true
+    }
+
+
 }

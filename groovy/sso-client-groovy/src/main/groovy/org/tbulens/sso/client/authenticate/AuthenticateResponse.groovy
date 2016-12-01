@@ -13,7 +13,7 @@ class AuthenticateResponse {
     String secureCookieId
     String sessionId
     String requestTicket
-    int status
+    int statusId
 
     String toJson() {
         new JsonUtil().toJson(this)

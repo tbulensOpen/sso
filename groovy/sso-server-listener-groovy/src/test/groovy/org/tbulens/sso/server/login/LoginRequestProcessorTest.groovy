@@ -34,6 +34,7 @@ class LoginRequestProcessorTest {
         assert result.userId == loginRequest.userId
         assert result.sessionId == loginRequest.sessionId
         assert result.statusId == LoginResponse.VALID_REQUEST
+        assert result.requestTicket.contains("RT_")
     }
 
     @Test
@@ -47,5 +48,6 @@ class LoginRequestProcessorTest {
         assert result.userId == loginRequest.userId
         assert result.sessionId == loginRequest.sessionId
         assert result.statusId == LoginResponse.BAD_REQUEST
+        assert !result.requestTicket
     }
 }

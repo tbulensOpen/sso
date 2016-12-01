@@ -13,6 +13,7 @@ class LoginResponse implements Serializable {
     String sessionId
     String originalServiceUrl
     int statusId
+    String requestTicket
 
     String toJson() {
         new JsonUtil().toJson(this)

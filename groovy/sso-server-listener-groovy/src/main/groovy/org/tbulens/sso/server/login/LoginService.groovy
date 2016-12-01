@@ -14,7 +14,7 @@ class LoginService {
 
     protected LoginResponse process(def loginRequestMap) {
         int status = loginRequestValidator.validate(loginRequestMap)
-        LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap)
+        LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap, status)
         if (status == LoginResponse.VALID_REQUEST) {
             redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
         }

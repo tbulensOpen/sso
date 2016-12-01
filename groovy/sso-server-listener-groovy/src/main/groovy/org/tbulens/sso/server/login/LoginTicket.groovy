@@ -10,6 +10,7 @@ class LoginTicket implements Serializable {
     Date lastAccessed
     Date expiredTime
     String originalServiceUrl
+    String requestTicket
 
     String toJson() {
         new JsonUtil().toJson(this)

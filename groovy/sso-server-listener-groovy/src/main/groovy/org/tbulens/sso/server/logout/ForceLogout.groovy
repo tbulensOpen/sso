@@ -11,7 +11,9 @@ import org.tbulens.sso.server.redis.RedisUtil
 class ForceLogout {
     @Autowired LogoutRepository logoutRepository
 
-    void logout(String secureCookieId) {
-        logoutRepository.logout(secureCookieId)
+    void logout(LoginTicket loginTicket) {
+        if (loginTicket) {
+            logoutRepository.logout(loginTicket)
+        }
     }
 }

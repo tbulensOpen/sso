@@ -3,10 +3,10 @@ package org.tbulens.sso.server.authenticate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.tbulens.sso.client.authenticate.AuthenticateResponse
-import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketFactory
 import org.tbulens.sso.server.logout.ForceLogout
+import org.tbulens.sso.server.logout.LogoutRepository
 import org.tbulens.sso.server.redis.RedisUtil
 
 @Component
@@ -16,6 +16,7 @@ class AuthenticateService {
     @Autowired AuthenticateResponseFactory responseFactory
     @Autowired LoginTicketFactory loginTicketFactory
     @Autowired ForceLogout forceLogout
+    @Autowired LogoutRepository logoutRepository
 
     protected AuthenticateResponse process(Map<String, Object> authenticateRequestMap) {
         String secureCookieId = authenticateRequestMap.secureCookieId
@@ -31,7 +32,7 @@ class AuthenticateService {
                 redisUtil.push(secureCookieId, loginTicket.toJson())
                 break
             case AuthenticateResponse.BAD_REQUEST:
-                forceLogout.logout(secureCookieId)
+                forceLogout.logout(loginTicket)
                 //todo: what to do here
                 break
             case AuthenticateResponse.NOT_AUTHENTICATED:
@@ -39,10 +40,10 @@ class AuthenticateService {
                 break
             case AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION:
                 //todo: what to do here
-                forceLogout.logout(secureCookieId)
+                forceLogout.logout(loginTicket)
                 break
             case AuthenticateResponse.TICKET_EXPIRED:
-                forceLogout.logout(secureCookieId)
+                logoutRepository.logout(loginTicket)
                 //todo: what to do here
                 break
             default:

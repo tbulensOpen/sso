@@ -21,7 +21,7 @@ class AuthenticateRequestValidator {
 
         if (sessionId != loginTicket.sessionId) return AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION
 
-        if (loginTicket.expiredTime <= new Date()) return AuthenticateResponse.TICKET_EXPIRED
+        if (loginTicket.isExpired()) return AuthenticateResponse.TICKET_EXPIRED
 
         String serviceRequestTicket = loginTicket.services[originalServiceUrl]
 

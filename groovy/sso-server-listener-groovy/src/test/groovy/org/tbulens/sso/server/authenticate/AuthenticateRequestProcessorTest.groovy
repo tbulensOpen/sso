@@ -13,6 +13,7 @@ import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketBuilder
 import org.tbulens.sso.server.login.LoginTicketFactory
+import org.tbulens.sso.server.redis.RedisHelper
 import org.tbulens.sso.server.redis.RedisUtil
 
 import java.text.SimpleDateFormat
@@ -27,11 +28,14 @@ class AuthenticateRequestProcessorTest {
     AuthenticateRequest authenticateRequest
     LoginTicket loginTicket
     JsonUtil jsonUtil = new JsonUtil()
+    RedisHelper redisHelper
 
     @Before
     void setUp() {
         authenticateRequest = new AuthenticateRequestBuilder().build()
         loginTicket = new LoginTicketBuilder().withAuthenticateRequest(authenticateRequest).build()
+        redisHelper = new RedisHelper(redisUtil: redisUtil)
+        redisHelper.clean()
     }
 
     @Test
@@ -80,6 +84,20 @@ class AuthenticateRequestProcessorTest {
         Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
 
         assert authenticateResponseMap.statusId == AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION
+        assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
+    }
+
+    @Test
+    void process_invalid_expired() {
+        loginTicket.expiredTime = (new Date()) - 1
+        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
+
+        authenticateRequest.requestTicket = "invalidRequestTicket"
+        String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
+
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+
+        assert authenticateResponseMap.statusId == AuthenticateResponse.TICKET_EXPIRED
         assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
     }
 }

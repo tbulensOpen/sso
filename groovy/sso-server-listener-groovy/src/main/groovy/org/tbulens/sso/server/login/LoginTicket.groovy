@@ -21,6 +21,6 @@ class LoginTicket implements Serializable {
     }
 
     boolean isExpired() {
-        false
+        expiredTime < new Date()
     }
 }

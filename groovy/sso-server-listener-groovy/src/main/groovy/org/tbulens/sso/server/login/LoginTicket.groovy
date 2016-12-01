@@ -16,6 +16,11 @@ class LoginTicket implements Serializable {
         services.put(key, value)
     }
 
+    void addServices(Map<String, String> services) {
+        this.services.clear()
+        this.services.putAll(services)
+    }
+
     String toJson() {
         new JsonUtil().toJson(this)
     }

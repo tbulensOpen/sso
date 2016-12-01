@@ -21,13 +21,14 @@ class LoginTicketBuilder {
         loginTicket.createDate = createDate
         loginTicket.lastAccessed = lastAccessed
         loginTicket.expiredTime = expiredTime
-        loginTicket.services.putAll(services)
+        loginTicket.addServices(services)
         loginTicket
     }
 
     LoginTicketBuilder withAuthenticateRequest(AuthenticateRequest authenticateRequest) {
         secureCookieId = authenticateRequest.secureCookieId
         sessionId = authenticateRequest.sessionId
+        services.clear()
         services.put(authenticateRequest.originalServiceUrl, authenticateRequest.requestTicket)
         this
     }

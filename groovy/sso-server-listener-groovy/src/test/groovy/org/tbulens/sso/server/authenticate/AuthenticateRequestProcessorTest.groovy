@@ -12,6 +12,7 @@ import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketBuilder
+import org.tbulens.sso.server.login.LoginTicketFactory
 import org.tbulens.sso.server.redis.RedisUtil
 
 import java.text.SimpleDateFormat
@@ -22,6 +23,7 @@ class AuthenticateRequestProcessorTest {
 
     @Autowired AuthenticateRequestProcessor authenticateRequestProcessor
     @Autowired RedisUtil redisUtil
+    @Autowired LoginTicketFactory loginTicketFactory
     AuthenticateRequest authenticateRequest
     LoginTicket loginTicket
     JsonUtil jsonUtil = new JsonUtil()
@@ -45,6 +47,9 @@ class AuthenticateRequestProcessorTest {
         assert authenticateResponseMap.requestTicket != authenticateRequest.requestTicket
         assert authenticateResponseMap.requestTicket.contains("RT_")
         assert authenticateResponseMap.statusId == AuthenticateResponse.AUTHENTICATED
+
+        LoginTicket loginTicketUpdated = loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
+        assert loginTicketUpdated.requestTicket == authenticateResponseMap.requestTicket
     }
 
     @Test

@@ -15,14 +15,36 @@ class AuthenticateService {
     @Autowired AuthenticateResponseFactory responseFactory
     @Autowired LoginTicketFactory loginTicketFactory
 
-    JsonUtil jsonUtil = new JsonUtil()
-
     protected AuthenticateResponse process(Map<String, Object> authenticateRequestMap) {
         String secureCookieId = authenticateRequestMap.secureCookieId
         LoginTicket loginTicket = loginTicketFactory.createFromSecureCookie(secureCookieId)
 
         int status = requestValidator.validate(authenticateRequestMap, loginTicket)
-        responseFactory.create(loginTicket, status)
+        AuthenticateResponse response = responseFactory.create(loginTicket, status)
+
+        //todo: convert switch into processors, retrieve processor using a factory
+        switch (status) {
+            case AuthenticateResponse.AUTHENTICATED:
+                loginTicket.requestTicket = response.requestTicket
+                redisUtil.push(secureCookieId, loginTicket.toJson())
+                break
+            case AuthenticateResponse.BAD_REQUEST:
+                //todo: what to do here
+                break
+            case AuthenticateResponse.NOT_AUTHENTICATED:
+                //todo: what to do here
+                break
+            case AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION:
+                //todo: what to do here
+                break
+            case AuthenticateResponse.TICKET_EXPIRED:
+                //todo: what to do here
+                break
+            default:
+                //todo: what to do here
+                break
+        }
+        response
     }
 
 

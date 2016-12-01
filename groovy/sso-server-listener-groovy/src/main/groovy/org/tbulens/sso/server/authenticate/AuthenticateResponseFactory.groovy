@@ -14,7 +14,8 @@ class AuthenticateResponseFactory {
         response.sessionId = loginTicket.sessionId
         response.secureCookieId = loginTicket.secureCookieId
         response.statusId = statusId
-        response.requestTicket = ticketGenerator.generateRequestTicket()
+
+        response.requestTicket =  statusId != AuthenticateResponse.AUTHENTICATED ?: ticketGenerator.generateRequestTicket()
         response
     }
 }

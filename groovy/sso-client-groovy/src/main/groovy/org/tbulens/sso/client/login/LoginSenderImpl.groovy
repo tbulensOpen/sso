@@ -10,6 +10,6 @@ class LoginSenderImpl implements LoginSender {
     SsoJmsMessageSender ssoJmsMessageSender
 
     String send(LoginRequest request) {
-        ssoJmsMessageSender.send(loginQueueChannel, request.toJson())
+        ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login", request.toJson())
     }
 }

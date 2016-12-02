@@ -22,7 +22,7 @@ class LoginSenderImplTest {
         LoginRequest loginRequest = new LoginRequestBuilder().build()
         String json = loginRequest.toJson()
 
-        mockSsoJmsMessageSender.send(loginSender.loginQueueChannel, json).returns("requestTicket")
+        mockSsoJmsMessageSender.sendAndReceive(loginSender.loginQueueChannel, "login", json).returns("requestTicket")
 
         play {
             assert loginSender.send(loginRequest) == "requestTicket"

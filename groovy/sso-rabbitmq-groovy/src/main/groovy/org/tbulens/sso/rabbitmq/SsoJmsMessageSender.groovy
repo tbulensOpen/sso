@@ -1,16 +1,8 @@
 package org.tbulens.sso.rabbitmq
 
-import com.rabbitmq.client.ConnectionFactory
-import com.rabbitmq.jms.admin.RMQConnectionFactory
 import org.springframework.amqp.core.AmqpTemplate
-import org.springframework.amqp.core.DirectExchange
-import org.springframework.amqp.core.Message
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
 import org.springframework.jms.annotation.EnableJms
-import org.springframework.jms.core.JmsTemplate
-import org.springframework.jms.core.MessageCreator
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @EnableJms
@@ -18,9 +10,10 @@ import org.springframework.stereotype.Component
 class SsoJmsMessageSender {
     @Autowired  AmqpTemplate amqpTemplate
 
-    String sendAndReceive(String jmsChannel, String json) {
-        String response = (String) amqpTemplate.convertSendAndReceive(jmsChannel, "login", json);
+    String sendAndReceive(String jmsChannel, String route, String json) {
+        String response = (String) amqpTemplate.convertSendAndReceive(jmsChannel, route, json);
         System.out.println(" [.] Got '" + response + "'");
+        response
     }
     
     String send(String json) {

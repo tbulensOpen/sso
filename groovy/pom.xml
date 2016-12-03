@@ -74,6 +74,11 @@
             </dependency>
             <dependency>
                 <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-common-groovy</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tbulens.sso</groupId>
                 <artifactId>sso-rabbitmq-groovy</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -127,6 +132,11 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

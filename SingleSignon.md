@@ -128,6 +128,7 @@ UserId
 // immuatable, insert every time, no updates
 RequestTicket {
     requestTicketId
+	cookieId
     httpSessionId
     entryTime
     expiredTime
@@ -135,25 +136,26 @@ RequestTicket {
 }
 
 UserSessionTicket {
+     cookieId
      httpSessionId
      ipAddress
      entryDate
      LoginTicket {
-	loginTime
+	        loginTime
             expirationTime
             failedAttempts
             lastLoginAttemptTime
             accountLockedTime
             attributes {
-		userId
+		        userId
          		lastName
          		firstName
-                       authorities {
+                authorities {
                            role_1
                            role_2
                        }
          		….
-	}
+	         }
      }
 }
 
@@ -161,6 +163,7 @@ UserSessionTicket {
 // used to prevent same user from logging on from multiple sessions
 UserId {
    userId
+   cookieId
    httpSessionId
 }
 

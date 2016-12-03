@@ -1,7 +1,7 @@
 # Single Signon 
 
 I am attempting to write a light weight single signon solution. This is intended for learning only.
-Read TedSingleSignon.odt open office document for artitechual design on how I want to approach this.
+Read SingleSignon.md for artitechual design on how I want to approach this.
 
 3 Major Components:
   * Client jar will contain a filter to call sso server

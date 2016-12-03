@@ -8,14 +8,14 @@ import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.mock.web.MockHttpSession
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
+import org.tbulens.sso.client.login.LoginSender
 import org.tbulens.sso.loginweb.login.LoginController
-import org.tbulens.sso.loginweb.login.LoginRequestFactory
-import org.tbulens.sso.loginweb.login.LoginSsoSender
+import org.tbulens.sso.client.login.LoginRequestFactory
 
 @WithGMock
 class LoginControllerTest {
     LoginController loginController
-    LoginSsoSender mockLoginSsoSender
+    LoginSender mockLoginSender
     MockHttpServletRequest mockRequest
     MockHttpServletResponse mockResponse
     MockHttpSession mockSession
@@ -37,17 +37,17 @@ class LoginControllerTest {
         mockSession = new MockHttpSession(null, loginRequest.sessionId)
         mockRequest.setSession(mockSession)
 
-        mockLoginSsoSender = mock(LoginSsoSender)
+        mockLoginSender = mock(LoginSender)
 
         loginController = new LoginController(cookieDomain: "localhost", loginRequestFactory: new LoginRequestFactory())
-        loginController.loginSsoSender = mockLoginSsoSender
+        loginController.loginSender = mockLoginSender
 
     }
 
     @Test
     void login_success() {
         loginResponse = new LoginResponse(statusId: LoginResponse.VALID_REQUEST, secureCookieId: "secureId")
-        mockLoginSsoSender.send(loginRequest).returns(loginResponse)
+        mockLoginSender.send(loginRequest).returns(loginResponse)
 
         play {
             loginController.login(mockRequest, mockResponse)

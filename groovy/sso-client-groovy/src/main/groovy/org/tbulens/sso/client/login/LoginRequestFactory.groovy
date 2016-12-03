@@ -1,8 +1,6 @@
-package org.tbulens.sso.loginweb.login
+package org.tbulens.sso.client.login
 
 import org.springframework.stereotype.Component
-import org.tbulens.sso.client.login.LoginRequest
-
 import javax.servlet.http.HttpServletRequest
 
 @Component

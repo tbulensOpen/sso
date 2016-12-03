@@ -9,6 +9,7 @@ import org.tbulens.sso.rabbitmq.SsoJmsMessageSender
 class LoginSenderImplTest {
     SsoJmsMessageSender mockSsoJmsMessageSender
     LoginSender loginSender
+    LoginResponse expectedLoginResponse
 
     @Before
     void setUp() {
@@ -21,11 +22,12 @@ class LoginSenderImplTest {
     void send() {
         LoginRequest loginRequest = new LoginRequestBuilder().build()
         String json = loginRequest.toJson()
+        expectedLoginResponse = new LoginResponseBuilder().build()
 
-        mockSsoJmsMessageSender.sendAndReceive(loginSender.loginQueueChannel, "login", json).returns("requestTicket")
+        mockSsoJmsMessageSender.sendAndReceive(loginSender.loginQueueChannel, "login", json).returns(expectedLoginResponse.toJson())
 
         play {
-            assert loginSender.send(loginRequest) == "requestTicket"
+            assert loginSender.send(loginRequest) == expectedLoginResponse
         }
     }
 }

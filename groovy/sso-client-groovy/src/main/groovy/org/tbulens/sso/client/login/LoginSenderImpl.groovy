@@ -1,15 +1,15 @@
 package org.tbulens.sso.client.login
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 import org.tbulens.sso.rabbitmq.SsoJmsMessageSender
 
 class LoginSenderImpl implements LoginSender {
 
     String loginQueueChannel
     SsoJmsMessageSender ssoJmsMessageSender
+    LoginResponseFactory loginResponseFactory = new LoginResponseFactory()
 
-    String send(LoginRequest request) {
-        ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login", request.toJson())
+    LoginResponse send(LoginRequest request) {
+        String loginResponseJson = ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login", request.toJson())
+        loginResponseFactory.create(loginResponseJson)
     }
 }

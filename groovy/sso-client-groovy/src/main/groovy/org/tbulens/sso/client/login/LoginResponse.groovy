@@ -3,6 +3,7 @@ package org.tbulens.sso.client.login
 import groovy.transform.Canonical
 import org.tbulens.sso.client.util.JsonUtil
 
+@Canonical
 class LoginResponse implements Serializable {
     final static int VALID_REQUEST = 0
     final static int BAD_REQUEST = 1

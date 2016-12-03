@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.login.LoginSender
+import org.tbulens.sso.common.util.SsoCookieCreator
 import org.tbulens.sso.loginweb.login.LoginController
 import org.tbulens.sso.client.login.LoginRequestFactory
 
@@ -60,7 +61,7 @@ class LoginControllerTest {
 
         play {
             loginController.login(mockRequest, mockResponse)
-            assert mockResponse.getCookie("ssoCookie").value == loginResponse.secureCookieId
+            assert mockResponse.getCookie(SsoCookieCreator.SSO_SESSION_ID).value == loginResponse.secureCookieId
         }
     }
 }

@@ -19,4 +19,8 @@ class AuthenticateResponse {
     String toJson() {
         new JsonUtil().toJson(this)
     }
+
+    boolean isAuthenticated() {
+        statusId == AUTHENTICATED
+    }
 }

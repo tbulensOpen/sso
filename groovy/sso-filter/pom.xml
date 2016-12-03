@@ -29,6 +29,10 @@
             <artifactId>javax.servlet-api</artifactId>
            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.tbulens.sso</groupId>
+            <artifactId>sso-client-groovy</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

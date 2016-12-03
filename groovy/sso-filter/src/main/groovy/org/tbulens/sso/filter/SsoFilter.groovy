@@ -1,5 +1,10 @@
 package org.tbulens.sso.filter
 
+import org.tbulens.sso.client.authenticate.AuthResponseFactory
+import org.tbulens.sso.client.authenticate.AuthenticateRequest
+import org.tbulens.sso.client.authenticate.AuthenticateResponse
+import org.tbulens.sso.client.authenticate.AuthenticateSender
+
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.FilterConfig
@@ -16,6 +21,8 @@ class SsoFilter implements Filter {
     static final String AUTHENTICATE = "/authenticate"
     static final String LOGIN = "/login"
     String ssoUrlPrefix
+    AuthenticateRequestFactory authenticateRequestFactory = new AuthenticateRequestFactory()
+    AuthenticateSender authenticateSender
 
     void init(FilterConfig filterConfig) throws ServletException {
 
@@ -23,20 +30,32 @@ class SsoFilter implements Filter {
 
     // be sure only secure urls get into this filter by specifying filter pattern.
     void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request =  servletRequest as HttpServletRequest
+        HttpServletRequest request = servletRequest as HttpServletRequest
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-        httpResponse.sendRedirect(buildCompleteSsoUrl(request));
+
+        if (isAuthenticated(request)) {
+            filterChain.doFilter(servletRequest, servletResponse)
+        } else {
+            httpResponse.sendRedirect(buildCompleteLoginSsoUrl(request))
+        }
     }
 
-    private String buildCompleteSsoUrl(HttpServletRequest request) {
+    private boolean isAuthenticated(HttpServletRequest request) {
+        Cookie secureCookie = findSecureCookie(request.cookies)
+        if (!secureCookie) return false
+
+        AuthenticateRequest authenticateRequest = authenticateRequestFactory.create(request, secureCookie.value)
+        AuthenticateResponse authenticateResponse = authenticateSender.send(authenticateRequest)
+        authenticateResponse.isAuthenticated()
+    }
+
+    private Cookie findSecureCookie(Cookie[] cookies) {
+        cookies.find { it.name == SSO_SESSION_ID }
+    }
+
+    private String buildCompleteLoginSsoUrl(HttpServletRequest request) {
         String encodedServiceUrl = buildEncodedServiceUrl(request)
-        String ssoUrl = buildSsoUrl(request.cookies)
-        ssoUrl + "?service=" + encodedServiceUrl
-    }
-
-    private String buildSsoUrl(Cookie[] cookies) {
-        Cookie ssoCookie = cookies.find { it.name == SSO_SESSION_ID }
-        ssoCookie ? ssoUrlPrefix + AUTHENTICATE : ssoUrlPrefix + LOGIN
+        ssoUrlPrefix + LOGIN + "?service=" + encodedServiceUrl
     }
 
     private String buildEncodedServiceUrl(HttpServletRequest request) {

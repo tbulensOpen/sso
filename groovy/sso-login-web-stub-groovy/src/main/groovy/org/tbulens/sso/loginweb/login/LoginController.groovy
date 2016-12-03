@@ -16,12 +16,12 @@ public class LoginController {
     @Autowired LoginSsoSender loginSsoSender
     @Autowired LoginRequestFactory loginRequestFactory
 
-    @RequestMapping(value = '/secure/login', method = RequestMethod.GET)
+    @RequestMapping(value = '/login', method = RequestMethod.GET)
     String login() {
         "login"
     }
 
-    @RequestMapping(value = "/secure/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     String login(HttpServletRequest request, HttpServletResponse response) {
         LoginRequest loginRequest = loginRequestFactory.create(request)
         LoginResponse loginResponse = loginSsoSender.send(loginRequest)

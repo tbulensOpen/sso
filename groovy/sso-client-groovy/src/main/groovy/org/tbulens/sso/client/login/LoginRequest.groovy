@@ -1,10 +1,10 @@
 package org.tbulens.sso.client.login
 
-import groovy.json.JsonBuilder
+import groovy.transform.Canonical
 import org.tbulens.sso.client.util.JsonUtil
 
-
-class LoginRequest {
+@Canonical
+class LoginRequest implements Serializable {
     String userId
     String sessionId
     String originalServiceUrl

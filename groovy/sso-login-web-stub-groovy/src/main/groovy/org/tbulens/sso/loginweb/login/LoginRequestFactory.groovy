@@ -15,6 +15,12 @@ class LoginRequestFactory {
         LoginRequest loginRequest = new LoginRequest()
         loginRequest.userId = userId
         loginRequest.sessionId = sessionId
+        loginRequest.originalServiceUrl = decodeServiceUrl(request.getParameter("service"))
         loginRequest
+    }
+
+    private String decodeServiceUrl(String service) {
+        URLDecoder.decode(service, "UTF-16")
+
     }
 }

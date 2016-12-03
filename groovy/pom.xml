@@ -34,6 +34,7 @@
 
     <modules>
         <module>sso-client-groovy</module>
+        <module>sso-filter</module>
         <module>sso-common-groovy</module>
         <module>sso-rabbitmq-groovy</module>
         <module>sso-redis-groovy</module>

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import org.tbulens.sso.client.login.LoginRequest
+import org.tbulens.sso.client.login.LoginResponse
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -23,7 +24,7 @@ public class LoginController {
     @RequestMapping(value = "/secure/login", method = RequestMethod.POST)
     String login(HttpServletRequest request, HttpServletResponse response) {
         LoginRequest loginRequest = loginRequestFactory.create(request)
-        String requestTicket = loginSsoSender.send(loginRequest)
+        LoginResponse loginResponse = loginSsoSender.send(loginRequest)
         return "Greetings from Spring Boot!";
     }
     

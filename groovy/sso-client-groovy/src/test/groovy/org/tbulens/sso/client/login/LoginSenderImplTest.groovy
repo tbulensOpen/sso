@@ -24,7 +24,7 @@ class LoginSenderImplTest {
         String json = loginRequest.toJson()
         expectedLoginResponse = new LoginResponseBuilder().build()
 
-        mockSsoJmsMessageSender.sendAndReceive(loginSender.loginQueueChannel, "login", json).returns(expectedLoginResponse.toJson())
+        mockSsoJmsMessageSender.sendAndReceive(loginSender.loginQueueChannel, "login.rpc.requests", json).returns(expectedLoginResponse.toJson())
 
         play {
             assert loginSender.send(loginRequest) == expectedLoginResponse

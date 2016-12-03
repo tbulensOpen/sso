@@ -13,7 +13,9 @@ class LoginRequestFactory {
         LoginRequest loginRequest = new LoginRequest()
         loginRequest.userId = userId
         loginRequest.sessionId = sessionId
-        loginRequest.originalServiceUrl = decodeServiceUrl(request.getParameter("service"))
+
+        String encodedServiceUrl = request.getParameter("service")
+        loginRequest.originalServiceUrl = encodedServiceUrl ? decodeServiceUrl(encodedServiceUrl) : null
         loginRequest
     }
 

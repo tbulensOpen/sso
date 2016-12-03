@@ -9,7 +9,7 @@ class LoginSenderImpl implements LoginSender {
     LoginResponseFactory loginResponseFactory = new LoginResponseFactory()
 
     LoginResponse send(LoginRequest request) {
-        String loginResponseJson = ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login", request.toJson())
+        String loginResponseJson = ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login.rpc.requests", request.toJson())
         loginResponseFactory.create(loginResponseJson)
     }
 }

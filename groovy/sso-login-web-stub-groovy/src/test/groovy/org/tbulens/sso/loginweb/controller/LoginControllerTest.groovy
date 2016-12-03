@@ -6,6 +6,7 @@ import org.junit.Test
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.mock.web.MockHttpSession
+import org.springframework.ui.ModelMap
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.login.LoginSender
@@ -21,12 +22,13 @@ class LoginControllerTest {
     MockHttpSession mockSession
     LoginRequest loginRequest
     LoginResponse loginResponse
+    String encodedUrl
 
 
     @Before
     void setUp() {
         String serviceUrl = "http://localhost:8080/testapp?arg1=value1&arg2=value2"
-        String encodedUrl = URLEncoder.encode(serviceUrl, "UTF-16")
+        encodedUrl = URLEncoder.encode(serviceUrl, "UTF-16")
         loginRequest = new LoginRequest(sessionId: "sessionId1", userId: "userA", originalServiceUrl: serviceUrl)
 
         mockResponse = new MockHttpServletResponse()
@@ -45,7 +47,14 @@ class LoginControllerTest {
     }
 
     @Test
-    void login_success() {
+    void login_get() {
+        ModelMap model = new ModelMap()
+        assert loginController.login(mockRequest, model) == "login"
+        assert model.get("service") ==  encodedUrl
+    }
+
+    @Test
+    void login_post_success() {
         loginResponse = new LoginResponse(statusId: LoginResponse.VALID_REQUEST, secureCookieId: "secureId")
         mockLoginSender.send(loginRequest).returns(loginResponse)
 

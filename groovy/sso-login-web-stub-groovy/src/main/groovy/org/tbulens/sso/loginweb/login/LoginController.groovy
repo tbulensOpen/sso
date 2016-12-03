@@ -3,8 +3,10 @@ package org.tbulens.sso.loginweb.login
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.servlet.ModelAndView
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginRequestFactory
 import org.tbulens.sso.client.login.LoginResponse
@@ -21,7 +23,9 @@ public class LoginController {
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
 
     @RequestMapping(value = '/login', method = RequestMethod.GET)
-    String login() {
+    String login(HttpServletRequest request, ModelMap model) {
+        String encodedServiceUrl = request.getParameter("service")
+        model.put("service", encodedServiceUrl)
         "login"
     }
 

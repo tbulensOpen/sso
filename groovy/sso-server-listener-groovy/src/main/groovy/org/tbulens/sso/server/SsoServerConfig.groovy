@@ -1,7 +1,9 @@
 package org.tbulens.sso.server
 
+import org.springframework.amqp.core.AmqpAdmin
 import org.springframework.amqp.core.BindingBuilder
 import org.springframework.amqp.core.DirectExchange
+import org.springframework.amqp.rabbit.core.RabbitAdmin
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.amqp.core.Queue
@@ -15,7 +17,7 @@ class ServerConfig {
 
         @Bean
         public Queue queue() {
-            return new Queue("sso.rpc.requests");
+            return new Queue("login");
         }
 
         @Bean
@@ -24,15 +26,14 @@ class ServerConfig {
         }
 
         @Bean
-        public Binding binding(DirectExchange exchange, Queue queue) {
-            return BindingBuilder.bind(queue).to(exchange).with("rpc");
+        public Binding loginBinding(DirectExchange exchange, Queue queue) {
+            return BindingBuilder.bind(queue).to(exchange).with("login");
         }
 
         @Bean
         LoginRequestProcessor server() {
             return new LoginRequestProcessor();
         }
-
     }
 
 }

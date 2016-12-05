@@ -9,7 +9,7 @@ import org.tbulens.sso.client.util.JsonUtil
 class AuthenticateRequestProcessor {
     @Autowired AuthenticateService authenticateService
 
-    @RabbitListener(queues = "authenticate.rpc.requests")
+    @RabbitListener(queues = "authenticate")
     String process(String authenticateRequestJson) {
         JsonUtil jsonUtil = new JsonUtil()
         Map<String, Object> authenticateRequestMap = jsonUtil.fromJson(authenticateRequestJson)

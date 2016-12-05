@@ -10,6 +10,7 @@
     <context:property-placeholder location="classpath:application.properties"/>
 
     <import resource="classpath:contexts/RedisContext.xml"/>
+    <import resource="classpath:contexts/RabbitMqContext.xml"/>
 
     <context:component-scan base-package="org.tbulens.sso.server"/>
 

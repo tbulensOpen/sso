@@ -1,4 +1,4 @@
-package org.tbulens.sso.client.login
+package org.tbulens.sso.client.authenticate
 
 import org.junit.Before
 import org.junit.Ignore
@@ -10,20 +10,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations=["classpath:contexts/test-client-context.xml"])
-class LoginSenderImplTest {
-    @Autowired LoginSender loginSender
+class AuthenticateSenderImplTest {
+
+    @Autowired AuthenticateSender authenticateSender
+    AuthenticateRequest authenticateRequest
 
     @Before
     void setUp() {
-        loginSender = new LoginSenderImpl(loginQueueChannel: "sso.rpc", loginQueue: "login")
+        authenticateRequest = new AuthenticateRequestBuilder().build()
     }
 
     @Ignore
     @Test
     void send() {
-        LoginRequest loginRequest = new LoginRequestBuilder().build()
-        LoginResponse loginResponse = loginSender.send(loginRequest)
-
-        assert loginResponse
+        AuthenticateResponse response = authenticateSender.send(authenticateRequest)
+        assert response
     }
 }

@@ -10,7 +10,7 @@ class LoginRequestProcessor {
     @Autowired LoginService loginService
     JsonUtil jsonUtil = new JsonUtil()
 
-    @RabbitListener(queues = "login.rpc.requests")
+    @RabbitListener(queues = "login")
     // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
     String login(String loginRequestJson) {
         Map<String, Object> loginRequestMap = jsonUtil.fromJson(loginRequestJson)

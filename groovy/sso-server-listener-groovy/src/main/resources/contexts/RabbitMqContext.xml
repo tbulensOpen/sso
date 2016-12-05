@@ -11,14 +11,13 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="org.tbulens.sso.rabbitmq"/>
-
     <rabbit:connection-factory id="connectionFactory" username="guest" password="guest" host="localhost" port="5672"/>
 
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
 
-    <!--<rabbit:admin connection-factory="connectionFactory"/>-->
+    <rabbit:admin connection-factory="connectionFactory" />
 
-    <rabbit:queue name="myqueue"/>
+    <!--<rabbit:queue id="login.queue" name="login" auto-delete="false" durable="true"/>-->
+    <!--<rabbit:queue id="authenticate.queue" name="authenticate" auto-delete="false" durable="true" />-->
 
 </beans>

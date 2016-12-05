@@ -6,14 +6,20 @@
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <bean id="loginSender" class="org.tbulens.sso.client.login.LoginSenderImpl">
-       <property name="loginQueueChannel" value="myqueue"/>
-       <property name="ssoJmsMessageSender" ref="ssoJmsMessageSender"/>
-   </bean>
 
-    <rabbit:connection-factory id="connectionFactory"/>
+    <rabbit:connection-factory id="connectionFactory" username="guest" password="guest" host="localhost" port="5672"/>
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
     <rabbit:admin connection-factory="connectionFactory"/>
-    <rabbit:queue name="myqueue"/>
 
+    <bean id="authenticateSender" class="org.tbulens.sso.client.authenticate.AuthenticateSenderImpl">
+        <property name="authenticateQueueChannel" value="sso.rpc"/>
+        <property name="authenticateQueue" value="authenticate"/>
+        <property name="amqpTemplate" ref="amqpTemplate"/>
+    </bean>
+
+    <bean id="loginSender" class="org.tbulens.sso.client.login.LoginSenderImpl">
+        <property name="loginQueueChannel" value="sso.rpc"/>
+        <property name="loginQueue" value="login"/>
+        <property name="amqpTemplate" ref="amqpTemplate"/>
+    </bean>
 </beans>

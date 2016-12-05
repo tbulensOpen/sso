@@ -30,6 +30,7 @@
         <jedis.version>2.9.0</jedis.version>
         <spring-boot-starter-data-redis.version>1.4.2.RELEASE</spring-boot-starter-data-redis.version>
         <joda-time.version>2.9.6</joda-time.version>
+        <slf4j-version>1.7.21</slf4j-version>
     </properties>
 
     <modules>
@@ -105,6 +106,11 @@
                 <version>1.1.5.RELEASE</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-amqp</artifactId>
+                <version>1.6.5.RELEASE</version>
+            </dependency>
+            <dependency>
                 <groupId>com.rabbitmq.jms</groupId>
                 <artifactId>rabbitmq-jms</artifactId>
                 <version>${rabbitmq-jms.version}</version>
@@ -138,6 +144,16 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>4.3.4.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

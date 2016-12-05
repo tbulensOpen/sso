@@ -1,15 +1,24 @@
 package org.tbulens.sso.client.login
 
-import org.tbulens.sso.rabbitmq.SsoJmsMessageSender
+import org.springframework.amqp.core.AmqpTemplate
+import org.springframework.beans.factory.annotation.Autowired
+
 
 class LoginSenderImpl implements LoginSender {
 
-    String loginQueueChannel
-    SsoJmsMessageSender ssoJmsMessageSender
+    String loginQueueChannel = "sso.rpc"
+    String loginQueue = "login"
     LoginResponseFactory loginResponseFactory = new LoginResponseFactory()
+    @Autowired AmqpTemplate amqpTemplate
 
     LoginResponse send(LoginRequest request) {
-        String loginResponseJson = ssoJmsMessageSender.sendAndReceive(loginQueueChannel, "login.rpc.requests", request.toJson())
+        String loginResponseJson = sendAndReceive(loginQueueChannel, loginQueue, request.toJson())
         loginResponseFactory.create(loginResponseJson)
+    }
+
+    private String sendAndReceive(String jmsChannel, String route, String json) {
+        String response = (String) amqpTemplate.convertSendAndReceive(jmsChannel, route, json);
+        System.out.println(" [.] Got '" + response + "'");
+        response
     }
 }

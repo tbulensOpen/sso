@@ -37,7 +37,6 @@
         <module>sso-client-groovy</module>
         <module>sso-filter</module>
         <module>sso-common-groovy</module>
-        <module>sso-rabbitmq-groovy</module>
         <module>sso-redis-groovy</module>
         <module>sso-server-listener-groovy</module>
         <module>sso-login-web-stub-groovy</module>
@@ -78,11 +77,6 @@
                 <groupId>org.tbulens.sso</groupId>
                 <artifactId>sso-common-groovy</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.tbulens.sso</groupId>
-                <artifactId>sso-rabbitmq-groovy</artifactId>
-                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.tbulens.sso</groupId>

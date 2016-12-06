@@ -20,6 +20,7 @@ class LoginService {
 
         LoginTicket loginTicket = loginTicketFactory.create(loginRequestMap, status)
         if (status == LoginResponse.VALID_REQUEST) {
+            println "saving user: ${loginTicket.userId} with secure ticketId = " + loginTicket.secureCookieId
             saveUser(loginTicket)
         }
         return loginResponseFactory.create(loginTicket, status, loginRequestMap)
@@ -33,6 +34,9 @@ class LoginService {
 
     private LoginTicket findLoginTicket(String userId) {
         String secureCookieId = redisUtil.get(userId)
+
+        println "User: ${userId}" + " existing secure CookieId = " + secureCookieId
+
         if (!secureCookieId) return null
 
         LoginTicket loginTicket = loginTicketFactory.createFromSecureCookie(secureCookieId)

@@ -1,18 +1,17 @@
 package org.tbulens.sso.client.login
 
 import org.springframework.amqp.core.AmqpTemplate
-import org.springframework.beans.factory.annotation.Autowired
-
 
 class LoginSenderImpl implements LoginSender {
 
-    String loginQueueChannel = "sso.rpc"
-    String loginQueue = "login"
+    String loginQueueChannel
+    String loginQueue
     LoginResponseFactory loginResponseFactory = new LoginResponseFactory()
-    @Autowired AmqpTemplate amqpTemplate
+    AmqpTemplate amqpTemplate
 
     LoginResponse send(LoginRequest request) {
-        String loginResponseJson = sendAndReceive(loginQueueChannel, loginQueue, request.toJson())
+        println "aaa = " + amqpTemplate + "  loginQueueChannel = " + loginQueueChannel
+                String loginResponseJson = sendAndReceive(loginQueueChannel, loginQueue, request.toJson())
         loginResponseFactory.create(loginResponseJson)
     }
 

@@ -1,4 +1,4 @@
-package org.tbulens.sso.server.redis
+package org.tbulens.sso.redis
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.core.StringRedisTemplate

@@ -38,6 +38,11 @@
             <artifactId>sso-redis-groovy</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.tbulens.sso</groupId>
+            <artifactId>sso-redis-groovy</artifactId>
+            <type>test-jar</type>
+        </dependency>
+        <dependency>
             <groupId>com.rabbitmq.jms</groupId>
             <artifactId>rabbitmq-jms</artifactId>
         </dependency>
@@ -56,14 +61,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-keyvalue</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

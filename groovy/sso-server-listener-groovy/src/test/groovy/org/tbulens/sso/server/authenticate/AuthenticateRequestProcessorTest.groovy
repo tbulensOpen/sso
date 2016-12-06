@@ -13,10 +13,8 @@ import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketBuilder
 import org.tbulens.sso.server.login.LoginTicketFactory
-import org.tbulens.sso.server.redis.RedisHelper
-import org.tbulens.sso.server.redis.RedisUtil
-
-import java.text.SimpleDateFormat
+import org.tbulens.sso.redis.RedisHelper
+import org.tbulens.sso.redis.RedisUtil
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ["classpath:contexts/sso-server-application-context.xml"])

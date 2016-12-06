@@ -1,4 +1,6 @@
-package org.tbulens.sso.server.redis
+package org.tbulens.sso.redis
+
+import org.tbulens.sso.redis.RedisUtil
 
 
 class RedisHelper {

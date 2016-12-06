@@ -7,7 +7,7 @@ import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketFactory
 import org.tbulens.sso.server.logout.ForceLogout
 import org.tbulens.sso.server.logout.LogoutRepository
-import org.tbulens.sso.server.redis.RedisUtil
+import org.tbulens.sso.redis.RedisUtil
 
 @Component
 class AuthenticateService {

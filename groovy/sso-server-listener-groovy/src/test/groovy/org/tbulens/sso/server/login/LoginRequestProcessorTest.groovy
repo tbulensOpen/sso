@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.login.LoginRequestBuilder
-import org.tbulens.sso.server.redis.RedisHelper
-import org.tbulens.sso.server.redis.RedisUtil
+import org.tbulens.sso.redis.RedisHelper
+import org.tbulens.sso.redis.RedisUtil
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations=["classpath:contexts/sso-server-application-context.xml"])

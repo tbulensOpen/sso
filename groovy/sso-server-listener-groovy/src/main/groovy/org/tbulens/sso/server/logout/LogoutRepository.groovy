@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.tbulens.sso.server.login.LoginTicket
 import org.tbulens.sso.server.login.LoginTicketFactory
-import org.tbulens.sso.server.redis.RedisUtil
+import org.tbulens.sso.redis.RedisUtil
 
 @Component
 class LogoutRepository {

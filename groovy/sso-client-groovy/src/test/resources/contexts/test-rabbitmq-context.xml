@@ -8,6 +8,6 @@
 
     <rabbit:connection-factory id="connectionFactory" username="guest" password="guest" host="localhost" port="5672"/>
 
-    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" reply-timeout="5000"/>
 
 </beans>

@@ -22,6 +22,8 @@ class AuthenticateService {
         String secureCookieId = authenticateRequestMap.secureCookieId
         LoginTicket loginTicket = loginTicketFactory.createFromSecureCookie(secureCookieId)
 
+        println "loginTicket = " + loginTicket
+
         int status = requestValidator.validate(authenticateRequestMap, loginTicket)
         AuthenticateResponse response = responseFactory.create(loginTicket, status, authenticateRequestMap)
 

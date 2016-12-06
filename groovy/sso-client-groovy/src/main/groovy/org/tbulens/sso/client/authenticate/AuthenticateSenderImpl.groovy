@@ -4,13 +4,12 @@ import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-@Component
 class AuthenticateSenderImpl implements AuthenticateSender {
 
-    String authenticateQueueChannel = "sso.rpc"
-    String authenticateQueue = "authenticate"
+    String authenticateQueueChannel
+    String authenticateQueue
     AuthResponseFactory authResponseFactory = new AuthResponseFactory()
-    @Autowired AmqpTemplate amqpTemplate
+    AmqpTemplate amqpTemplate
 
     AuthenticateResponse send(AuthenticateRequest request) {
         String authenticateResponseJson = sendAndReceive(authenticateQueueChannel, authenticateQueue, request.toJson())

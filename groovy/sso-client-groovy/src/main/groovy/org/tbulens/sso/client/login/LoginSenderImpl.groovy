@@ -10,8 +10,7 @@ class LoginSenderImpl implements LoginSender {
     AmqpTemplate amqpTemplate
 
     LoginResponse send(LoginRequest request) {
-        println "aaa = " + amqpTemplate + "  loginQueueChannel = " + loginQueueChannel
-                String loginResponseJson = sendAndReceive(loginQueueChannel, loginQueue, request.toJson())
+        String loginResponseJson = sendAndReceive(loginQueueChannel, loginQueue, request.toJson())
         loginResponseFactory.create(loginResponseJson)
     }
 

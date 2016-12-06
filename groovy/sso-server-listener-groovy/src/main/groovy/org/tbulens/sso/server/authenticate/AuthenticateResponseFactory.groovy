@@ -11,12 +11,14 @@ class AuthenticateResponseFactory {
 
     protected AuthenticateResponse create(LoginTicket loginTicket, int statusId, Map<String, Object> authenticateRequestMap) {
         AuthenticateResponse response = new AuthenticateResponse()
-        response.sessionId = loginTicket.sessionId
-        response.secureCookieId = loginTicket.secureCookieId
         response.statusId = statusId
         response.originalServiceUrl = authenticateRequestMap.originalServiceUrl
 
-        response.requestTicket =  statusId != AuthenticateResponse.AUTHENTICATED ?: ticketGenerator.generateRequestTicket()
+        if (loginTicket) {
+            response.sessionId = loginTicket.sessionId
+            response.secureCookieId = loginTicket.secureCookieId
+            response.requestTicket = ticketGenerator.generateRequestTicket()
+        }
         response
     }
 }

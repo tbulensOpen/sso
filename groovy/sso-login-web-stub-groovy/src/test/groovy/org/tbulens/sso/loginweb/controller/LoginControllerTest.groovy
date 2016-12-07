@@ -11,6 +11,7 @@ import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.login.LoginSender
 import org.tbulens.sso.common.util.SsoCookieCreator
+import org.tbulens.sso.loginweb.login.CredentialFactory
 import org.tbulens.sso.loginweb.login.LoginController
 import org.tbulens.sso.client.login.LoginRequestFactory
 
@@ -42,7 +43,7 @@ class LoginControllerTest {
 
         mockLoginSender = mock(LoginSender)
 
-        loginController = new LoginController(cookieDomain: "localhost", loginRequestFactory: new LoginRequestFactory())
+        loginController = new LoginController(cookieDomain: "localhost", loginRequestFactory: new LoginRequestFactory(), credentialFactory: new CredentialFactory())
         loginController.loginSender = mockLoginSender
 
     }

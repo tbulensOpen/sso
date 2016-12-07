@@ -13,7 +13,7 @@ class SsoCookieCreator {
         cookie.setHttpOnly(true)
         cookie.setSecure(true)
         cookie.setDomain(domain)
-        cookie.path(ssoContextRoot)
+        cookie.setPath(ssoContextRoot)
         response.addCookie(cookie)
     }
 }

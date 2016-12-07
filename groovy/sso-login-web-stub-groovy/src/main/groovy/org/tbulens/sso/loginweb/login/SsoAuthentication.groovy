@@ -7,9 +7,9 @@ import org.springframework.security.core.GrantedAuthority
 class SsoAuthentication implements Authentication {
     private final Collection<? extends GrantedAuthority> authorities
     private final String userName
-    private final boolean authenticated
+    private boolean authenticated
 
-    SsoAuthentication(Collection<? extends GrantedAuthority> authorities, String userName, boolean authenticated) {
+    protected SsoAuthentication(Collection<? extends GrantedAuthority> authorities, String userName, boolean authenticated) {
         this.authorities = authorities
         this.userName = userName
         this.authenticated = authenticated

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class CredentialFactory {
 
-    void setAuthentication(String userName, Collection<? extends GrantedAuthority> authorities) {
+    protected void setAuthentication(String userName, Collection<? extends GrantedAuthority> authorities) {
         SsoAuthentication authentication = new SsoAuthentication(authorities, userName, true)
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

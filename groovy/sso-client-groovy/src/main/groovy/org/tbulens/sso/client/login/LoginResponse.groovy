@@ -19,4 +19,8 @@ class LoginResponse implements Serializable {
     String toJson() {
         new JsonUtil().toJson(this)
     }
+
+    boolean isLoggedIn() {
+        statusId == VALID_REQUEST
+    }
 }

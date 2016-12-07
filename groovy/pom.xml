@@ -42,6 +42,7 @@
         <module>sso-login-web-stub-groovy</module>
         <module>sso-logout-web-groovy</module>
         <module>sso-test-app-web-groovy</module>
+        <module>sso-integration</module>
     </modules>
 
     <dependencyManagement>
@@ -165,6 +166,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>4.3.4.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>4.2.0.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

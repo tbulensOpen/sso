@@ -2,6 +2,8 @@ package org.tbulens.sso.loginweb.login
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,7 +21,9 @@ import javax.servlet.http.HttpServletResponse
 public class LoginController {
     @Autowired LoginSender loginSender
     @Autowired LoginRequestFactory loginRequestFactory
+    @Autowired CredentialFactory credentialFactory
     @Value("{cookie.domain}") String cookieDomain
+    @Value("{cookie.context.rool}") String cookieContextRoot
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
 
     @RequestMapping(value = '/login', method = RequestMethod.GET)
@@ -33,7 +37,12 @@ public class LoginController {
     String login(HttpServletRequest request, HttpServletResponse response) {
         LoginRequest loginRequest = loginRequestFactory.create(request)
         LoginResponse loginResponse = loginSender.send(loginRequest)
-        ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain)
+
+        if (loginResponse.isLoggedIn()) {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
+            credentialFactory.setAuthentication("userName",[authority])
+            ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
+        }
         return "Greetings from Spring Boot!";
     }
     

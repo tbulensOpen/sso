@@ -1,7 +1,7 @@
 package org.tbulens.sso.loginweb.login
 
 
-class LoginForm {
+class LoginForm implements Serializable {
     String username
     String password
 }

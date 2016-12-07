@@ -8,7 +8,7 @@ class LoginRequestFactory {
 
     LoginRequest create(HttpServletRequest request) {
         String sessionId = request.session.id
-        String userId = request.getParameter("userId")
+        String userId = request.getParameter("username")
 
         LoginRequest loginRequest = new LoginRequest()
         loginRequest.userId = userId

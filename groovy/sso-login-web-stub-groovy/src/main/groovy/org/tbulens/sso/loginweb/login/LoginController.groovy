@@ -22,6 +22,7 @@ public class LoginController {
     @Autowired LoginSender loginSender
     @Autowired LoginRequestFactory loginRequestFactory
     @Autowired CredentialFactory credentialFactory
+    @Autowired LoginValidator loginValidator
     @Value("{cookie.domain}") String cookieDomain
     @Value("{cookie.context.rool}") String cookieContextRoot
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
@@ -38,14 +39,16 @@ public class LoginController {
         String userName = request.getParameter("username")
         String password = request.getParameter("password")
 
+        boolean isValid = loginValidator.validate(userName, password)
 
+        if (!isValid) return "Bad username and password"
 
         LoginRequest loginRequest = loginRequestFactory.create(request)
         LoginResponse loginResponse = loginSender.send(loginRequest)
 
         if (loginResponse.isLoggedIn()) {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
-            credentialFactory.setAuthentication("userName",[authority])
+            credentialFactory.setAuthentication(userName,[authority])
             ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
         }
         return "Greetings from Spring Boot!";

@@ -35,6 +35,11 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     String login(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getParameter("username")
+        String password = request.getParameter("password")
+
+
+
         LoginRequest loginRequest = loginRequestFactory.create(request)
         LoginResponse loginResponse = loginSender.send(loginRequest)
 

@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
+import org.springframework.validation.Errors
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
@@ -35,11 +37,10 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(HttpServletRequest request, HttpServletResponse response) {
-        String userName = request.getParameter("username")
-        String password = request.getParameter("password")
+    String login(HttpServletRequest request, HttpServletResponse response,
+                 @ModelAttribute("loginForm") LoginForm loginForm, Errors errors) {
 
-        boolean isValid = loginValidator.validate(userName, password)
+        boolean isValid = loginValidator.validate(loginForm, errors)
 
         if (!isValid) return "Bad username and password"
 
@@ -48,7 +49,7 @@ public class LoginController {
 
         if (loginResponse.isLoggedIn()) {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
-            credentialFactory.setAuthentication(userName,[authority])
+            credentialFactory.setAuthentication(loginForm.username,[authority])
             ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
         }
         return "Greetings from Spring Boot!";

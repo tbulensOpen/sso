@@ -7,6 +7,8 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 import org.springframework.mock.web.MockHttpSession
 import org.springframework.ui.ModelMap
+import org.springframework.validation.Errors
+import org.springframework.validation.MapBindingResult
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.login.LoginSender
@@ -14,6 +16,7 @@ import org.tbulens.sso.common.util.SsoCookieCreator
 import org.tbulens.sso.loginweb.login.CredentialFactory
 import org.tbulens.sso.loginweb.login.LoginController
 import org.tbulens.sso.client.login.LoginRequestFactory
+import org.tbulens.sso.loginweb.login.LoginForm
 import org.tbulens.sso.loginweb.login.LoginValidator
 
 @WithGMock
@@ -26,6 +29,8 @@ class LoginControllerTest {
     LoginRequest loginRequest
     LoginResponse loginResponse
     String encodedUrl
+    Errors errors = new MapBindingResult([:], '')
+    LoginForm loginForm
 
 
     @Before
@@ -49,6 +54,7 @@ class LoginControllerTest {
                                               credentialFactory: new CredentialFactory(), loginValidator: new LoginValidator())
         loginController.loginSender = mockLoginSender
 
+        loginForm = new LoginForm(username: "123456", password: "A#b1dddd")
     }
 
     @Test
@@ -64,7 +70,7 @@ class LoginControllerTest {
         mockLoginSender.send(loginRequest).returns(loginResponse)
 
         play {
-            loginController.login(mockRequest, mockResponse)
+            loginController.login(mockRequest, mockResponse, loginForm, errors)
             assert mockResponse.getCookie(SsoCookieCreator.SSO_SESSION_ID).value == loginResponse.secureCookieId
         }
     }

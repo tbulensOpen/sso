@@ -1,6 +1,7 @@
 package org.tbulens.sso.loginweb.login
 
 import org.springframework.stereotype.Component
+import org.springframework.validation.Errors
 
 
 @Component
@@ -21,10 +22,9 @@ class LoginValidator {
     String usernamePattern = "^[a-zA-Z0-9_-]{6,15}(^[^S])*\$"
     String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)(?=.*[@#\$%^&+=]).{8,20}\$"
 
-    protected boolean validate(String username, String password) {
-        if (!username.matches(usernamePattern)) return false
-        if (!password.matches(passwordPattern)) return false
-//        if (password.contains(" ")) return false
+    protected boolean validate(LoginForm loginForm, Errors errors) {
+        if (!loginForm.username.matches(usernamePattern)) return false
+        if (!loginForm.password.matches(passwordPattern)) return false
         true
     }
 }

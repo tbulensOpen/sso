@@ -39,6 +39,7 @@ class LoginControllerTest {
     void setUp() {
         String serviceUrl = "http://localhost:8080/testapp?arg1=value1&arg2=value2"
         encodedUrl = URLEncoder.encode(serviceUrl, "UTF-16")
+
         loginRequest = new LoginRequest(sessionId: "sessionId1", userId: "123456", originalServiceUrl: serviceUrl)
 
         mockResponse = new MockHttpServletResponse()
@@ -68,11 +69,13 @@ class LoginControllerTest {
 
     @Test
     void login_post_success() {
+        ModelMap model = new ModelMap()
+        model.put("service", encodedUrl)
         loginResponse = new LoginResponse(statusId: LoginResponse.VALID_REQUEST, secureCookieId: "secureId")
         mockLoginSender.send(loginRequest).returns(loginResponse)
 
         play {
-            loginController.login(mockRequest, mockResponse, loginForm, errors)
+            loginController.login(model, mockRequest, mockResponse, loginForm, errors)
             assert mockResponse.getCookie(SsoCookieCreator.SSO_SESSION_ID).value == loginResponse.secureCookieId
         }
     }

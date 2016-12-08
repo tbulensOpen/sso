@@ -20,7 +20,7 @@ class LoginValidator {
 */
 
     String usernamePattern = "^[a-zA-Z0-9_-]{6,15}(^[^S])*\$"
-    String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)(?=.*[@#\$%^&+=]).{8,20}\$"
+    String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[\$@\$!%*#?&])[A-Za-z\\d\$@\$!%*#?&]{8,20}\$"
 
     protected boolean validate(LoginForm loginForm, Errors errors) {
         boolean valid = false

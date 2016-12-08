@@ -1,14 +1,15 @@
 package org.tbulens.sso.client.authenticate
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.tbulens.sso.client.util.JsonUtil
 
 
 class AuthenticateResponse {
-    final static int AUTHENTICATED = 0
-    final static int BAD_REQUEST = 1
-    final static int NOT_AUTHENTICATED = 2
-    final static int NOT_AUTHORIZED_SECURITY_VIOLATION = 3
-    final static int TICKET_EXPIRED = 4
+    @JsonIgnore final static int AUTHENTICATED = 0
+    @JsonIgnore final static int BAD_REQUEST = 1
+    @JsonIgnore final static int NOT_AUTHENTICATED = 2
+    @JsonIgnore final static int NOT_AUTHORIZED_SECURITY_VIOLATION = 3
+    @JsonIgnore final static int TICKET_EXPIRED = 4
 
     String secureCookieId
     String sessionId

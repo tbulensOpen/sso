@@ -22,8 +22,8 @@ class LoginValidatorTest {
 
     @Test
     void validate_validUserNamePassword() {
-        loginForm.username = '123456'
-        loginForm.password = 'A#b1dddd'
+        loginForm.username = '12345678'
+        loginForm.password = 'a!D2vbhuf'
         assert validator.validate(loginForm, errors)
     }
 

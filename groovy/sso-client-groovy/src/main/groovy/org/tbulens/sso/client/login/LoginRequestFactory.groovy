@@ -6,15 +6,13 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class LoginRequestFactory {
 
-    LoginRequest create(HttpServletRequest request) {
+    LoginRequest create(HttpServletRequest request, String encodedServiceUrl) {
         String sessionId = request.session.id
         String userId = request.getParameter("username")
 
         LoginRequest loginRequest = new LoginRequest()
         loginRequest.userId = userId
         loginRequest.sessionId = sessionId
-
-        String encodedServiceUrl = request.getParameter("service")
         loginRequest.originalServiceUrl = encodedServiceUrl ? decodeServiceUrl(encodedServiceUrl) : null
         loginRequest
     }

@@ -1,5 +1,6 @@
 package org.tbulens.sso.loginweb.login
 
+import org.apache.log4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.GrantedAuthority
@@ -10,6 +11,7 @@ import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import org.tbulens.sso.client.login.LoginRequest
 import org.tbulens.sso.client.login.LoginRequestFactory
@@ -25,29 +27,40 @@ public class LoginController {
     @Autowired LoginRequestFactory loginRequestFactory
     @Autowired CredentialFactory credentialFactory
     @Autowired LoginValidator loginValidator
-    @Value("{cookie.domain}") String cookieDomain
-    @Value("{cookie.context.rool}") String cookieContextRoot
+//    @Value('${cookie.domain}') String cookieDomain
+    String cookieDomain = 'localhost'
+//    @Value('${cookie.context.root}') String cookieContextRoot
+    String cookieContextRoot = 'sso'
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
+    Logger logger = Logger.getLogger(this.class.name)
 
     @RequestMapping(value = '/login', method = RequestMethod.GET)
     String login(HttpServletRequest request, ModelMap model) {
         String encodedServiceUrl = request.getParameter("service")
-        model.put("service", encodedServiceUrl)
+        logger.debug("serviceUrl = " + request.getParameter("service"))
+        model.addAttribute("service", encodedServiceUrl)
         "login"
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    String login(HttpServletRequest request, HttpServletResponse response,
+    String login(ModelMap model, HttpServletRequest request, HttpServletResponse response,
                  @ModelAttribute("loginForm") LoginForm loginForm, Errors errors) {
+
 
         boolean isValid = loginValidator.validate(loginForm, errors)
 
-        if (!isValid) {
+        String encoderServiceUrl = model.get("service")
+        logger.debug( "${loginForm.username} - ${loginForm.password}")
+        logger.debug("is valid = ${isValid} +  serviceUrl = " + encoderServiceUrl)
 
+        if (!isValid) {
+            loginForm.clear()
             return "login"
         }
 
-        LoginRequest loginRequest = loginRequestFactory.create(request)
+        encoderServiceUrl = encoderServiceUrl ?: URLEncoder.encode("http://localhost:80801/testapp?param1=value1&param2=value2", "UTF-16")
+
+        LoginRequest loginRequest = loginRequestFactory.create(request, encoderServiceUrl)
         LoginResponse loginResponse = loginSender.send(loginRequest)
 
         if (loginResponse.isLoggedIn()) {

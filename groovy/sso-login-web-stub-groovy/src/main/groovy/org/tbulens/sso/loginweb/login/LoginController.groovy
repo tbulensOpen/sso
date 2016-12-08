@@ -42,7 +42,10 @@ public class LoginController {
 
         boolean isValid = loginValidator.validate(loginForm, errors)
 
-        if (!isValid) return "Bad username and password"
+        if (!isValid) {
+
+            return "login"
+        }
 
         LoginRequest loginRequest = loginRequestFactory.create(request)
         LoginResponse loginResponse = loginSender.send(loginRequest)
@@ -51,8 +54,8 @@ public class LoginController {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
             credentialFactory.setAuthentication(loginForm.username,[authority])
             ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
+            return "redirect:${loginResponse.originalServiceUrl}"
         }
-        return "Greetings from Spring Boot!";
+        "login"
     }
-    
 }

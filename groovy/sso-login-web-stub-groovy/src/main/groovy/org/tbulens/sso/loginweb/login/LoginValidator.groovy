@@ -23,8 +23,13 @@ class LoginValidator {
     String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)(?=.*[@#\$%^&+=]).{8,20}\$"
 
     protected boolean validate(LoginForm loginForm, Errors errors) {
-        if (!loginForm.username.matches(usernamePattern)) return false
-        if (!loginForm.password.matches(passwordPattern)) return false
-        true
+        boolean valid = false
+        if (loginForm.username.matches(usernamePattern)) valid = true
+        if (valid && !loginForm.password.matches(passwordPattern)) valid = false
+
+        if (!valid) {
+            errors.reject("exception.credentials.invalid", "Credentials entered is invalid.")
+        }
+        valid
     }
 }

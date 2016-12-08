@@ -19,6 +19,8 @@ import org.tbulens.sso.client.login.LoginRequestFactory
 import org.tbulens.sso.loginweb.login.LoginForm
 import org.tbulens.sso.loginweb.login.LoginValidator
 
+import javax.xml.bind.DataBindingException
+
 @WithGMock
 class LoginControllerTest {
     LoginController loginController

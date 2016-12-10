@@ -102,6 +102,11 @@
                 <type>test-jar</type>
             </dependency>
             <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-login-web-stub-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring-boot-starter-data-redis.version}</version>

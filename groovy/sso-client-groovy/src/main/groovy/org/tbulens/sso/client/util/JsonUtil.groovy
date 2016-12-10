@@ -1,10 +1,12 @@
 package org.tbulens.sso.client.util
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
-import org.springframework.stereotype.Component
 
 class JsonUtil {
+    ObjectMapper objectMapper = new ObjectMapper()
+    JsonSlurper jsonSlurper = new JsonSlurper()
 
     String clean(String json) {
         json.replaceAll("\n", "").replaceAll(" ", "")
@@ -15,7 +17,10 @@ class JsonUtil {
     }
 
     def fromJson(String json) {
-        def jsonSlurper = new JsonSlurper()
         jsonSlurper.parseText(json)
     }
+//
+//    T get(String content, Class clazz) throws IOException {
+//        return (T) objectMapper.readValue(content, clazz);
+//    }
 }

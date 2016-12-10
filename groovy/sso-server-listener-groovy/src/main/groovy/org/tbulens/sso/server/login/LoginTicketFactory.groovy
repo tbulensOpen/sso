@@ -22,7 +22,7 @@ class LoginTicketFactory {
 
         LoginTicket loginTicket = null
         if (loginTicketJson) {
-            Map<String, Object> loginTicketMap = jsonUtil.fromJson(loginTicketJson)
+            Map<String, Object> loginTicketMap = jsonUtil.fromJson(loginTicketJson, Map.class)
             loginTicket = createFromJsonMap(loginTicketMap)
         }
         loginTicket
@@ -55,9 +55,9 @@ class LoginTicketFactory {
         ticket.secureCookieId = loginTicketMap.secureCookieId
         ticket.userId = loginTicketMap.userId
         ticket.sessionId = loginTicketMap.sessionId
-        ticket.expiredTime = DateConverter.convertFromJson(loginTicketMap.expiredTime)
-        ticket.createDate = DateConverter.convertFromJson(loginTicketMap.createDate)
-        ticket.lastAccessed = DateConverter.convertFromJson(loginTicketMap.lastAccessed)
+        ticket.expiredTime = new Date(loginTicketMap.expiredTime)
+        ticket.createDate = new Date(loginTicketMap.createDate)
+        ticket.lastAccessed = new Date(loginTicketMap.lastAccessed)
         ticket.services = loginTicketMap.services as Map<String, String>
         ticket
     }

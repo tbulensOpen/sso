@@ -14,11 +14,9 @@ class AuthenticateRequestProcessor {
 
     @RabbitListener(queues = "authenticate")
     String process(String authenticateRequestJson) {
-        Map<String, Object> authenticateRequestMap = jsonUtil.fromJson(authenticateRequestJson)
+        Map<String, Object> authenticateRequestMap = jsonUtil.fromJson(authenticateRequestJson, Map.class) as Map<String, Object>
 
-        println "Ready to authenticate a user!!!!!"
         log.debug "authRequestMap: " + authenticateRequestMap
-
         authenticateService.process(authenticateRequestMap).toJson()
     }
 }

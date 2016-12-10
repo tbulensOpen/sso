@@ -16,7 +16,7 @@ class LoginRequestProcessor {
     // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
     String login(String loginRequestJson) {
         logger.debug("Login Processor recieved request = " + loginRequestJson)
-        Map<String, Object> loginRequestMap = jsonUtil.fromJson(loginRequestJson)
+        Map<String, Object> loginRequestMap = jsonUtil.fromJson(loginRequestJson, Map.class)
         loginService.process(loginRequestMap).toJson()
     }
 }

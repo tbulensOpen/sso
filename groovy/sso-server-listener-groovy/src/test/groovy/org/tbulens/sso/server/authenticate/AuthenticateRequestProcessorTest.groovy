@@ -42,7 +42,7 @@ class AuthenticateRequestProcessorTest {
 
         String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
 
-        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson, Map.class)
 
         assert authenticateResponseMap.secureCookieId == authenticateRequest.secureCookieId
         assert authenticateResponseMap.sessionId == authenticateRequest.sessionId
@@ -63,7 +63,7 @@ class AuthenticateRequestProcessorTest {
         authenticateRequest.originalServiceUrl = authenticateRequest.originalServiceUrl + "2"
         String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
 
-        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson, Map.class)
 
         assert authenticateResponseMap.statusId == AuthenticateResponse.AUTHENTICATED
         LoginTicket loginTicketUpdated = loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
@@ -79,7 +79,7 @@ class AuthenticateRequestProcessorTest {
         authenticateRequest.requestTicket = "invalidRequestTicket"
         String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
 
-        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson, Map.class)
 
         assert authenticateResponseMap.statusId == AuthenticateResponse.NOT_AUTHORIZED_SECURITY_VIOLATION
         assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)
@@ -93,7 +93,7 @@ class AuthenticateRequestProcessorTest {
         authenticateRequest.requestTicket = "invalidRequestTicket"
         String authenticateResponseJson = authenticateRequestProcessor.process(authenticateRequest.toJson())
 
-        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson)
+        Map<String, Object> authenticateResponseMap = jsonUtil.fromJson(authenticateResponseJson, Map.class)
 
         assert authenticateResponseMap.statusId == AuthenticateResponse.TICKET_EXPIRED
         assert !loginTicketFactory.createFromSecureCookie(loginTicket.secureCookieId)

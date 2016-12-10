@@ -76,6 +76,6 @@ class AuthenticateRequestValidatorTest {
     }
 
     private void updateAuthRequestMap() {
-        authenticateRequestMap = jsonUtil.fromJson(authenticateRequest.toJson())
+        authenticateRequestMap = jsonUtil.fromJson(authenticateRequest.toJson(), Map.class)
     }
 }

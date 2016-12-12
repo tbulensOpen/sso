@@ -3,9 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.tbulens.sso</groupId>
     <artifactId>sso-test-app-web-groovy</artifactId>
-    <version>0.0.1</version>
 
     <parent>
         <groupId>org.tbulens.sso</groupId>
@@ -25,6 +23,10 @@
             <artifactId>groovy-all</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.tbulens.sso</groupId>
+            <artifactId>sso-filter-groovy</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -39,6 +41,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- end::tests[] -->
     </dependencies>

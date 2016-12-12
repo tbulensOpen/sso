@@ -1,4 +1,4 @@
-package org.tbulens.sso.loginweb
+package org.tbulens.sso.testapp
 
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.boot.web.support.SpringBootServletInitializer

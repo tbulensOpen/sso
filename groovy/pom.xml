@@ -77,7 +77,7 @@
             <dependency>
                 <groupId>org.tbulens.sso</groupId>
                 <artifactId>sso-common-groovy</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.tbulens.sso</groupId>
@@ -104,6 +104,11 @@
             <dependency>
                 <groupId>org.tbulens.sso</groupId>
                 <artifactId>sso-login-web-stub-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.tbulens.sso</groupId>
+                <artifactId>sso-filter-groovy</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

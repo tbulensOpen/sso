@@ -1,10 +1,8 @@
 package org.tbulens.sso.filter
 
-import org.tbulens.sso.client.authenticate.AuthResponseFactory
 import org.tbulens.sso.client.authenticate.AuthenticateRequest
 import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.client.authenticate.AuthenticateSender
-
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.FilterConfig
@@ -20,7 +18,7 @@ class SsoFilter implements Filter {
     static final String SSO_SESSION_ID = "ssoSessionId"
     static final String AUTHENTICATE = "/authenticate"
     static final String LOGIN = "/login"
-    String ssoUrlPrefix
+    String ssoLoginUrlPrefix
     AuthenticateRequestFactory authenticateRequestFactory = new AuthenticateRequestFactory()
     AuthenticateSender authenticateSender
 
@@ -55,7 +53,7 @@ class SsoFilter implements Filter {
 
     private String buildCompleteLoginSsoUrl(HttpServletRequest request) {
         String encodedServiceUrl = buildEncodedServiceUrl(request)
-        ssoUrlPrefix + LOGIN + "?service=" + encodedServiceUrl
+        ssoLoginUrlPrefix + LOGIN + "?service=" + encodedServiceUrl
     }
 
     private String buildEncodedServiceUrl(HttpServletRequest request) {

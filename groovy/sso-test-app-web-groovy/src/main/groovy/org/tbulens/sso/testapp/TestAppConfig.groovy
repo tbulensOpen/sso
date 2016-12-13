@@ -15,6 +15,7 @@ class TestAppConfig {
         FilterRegistrationBean registration = new  FilterRegistrationBean();
         registration.setFilter(ssoFilter);
         registration.setOrder(1);
+        registration.addUrlPatterns("/*")
         return registration;
     }
 }

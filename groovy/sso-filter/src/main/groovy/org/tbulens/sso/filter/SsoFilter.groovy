@@ -1,5 +1,6 @@
 package org.tbulens.sso.filter
 
+import org.apache.log4j.Logger
 import org.tbulens.sso.client.authenticate.AuthenticateRequest
 import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.client.authenticate.AuthenticateSender
@@ -21,6 +22,7 @@ class SsoFilter implements Filter {
     String ssoLoginUrlPrefix
     AuthenticateRequestFactory authenticateRequestFactory = new AuthenticateRequestFactory()
     AuthenticateSender authenticateSender
+    Logger log = Logger.getLogger(this.class.name)
 
     void init(FilterConfig filterConfig) throws ServletException {
 
@@ -31,19 +33,25 @@ class SsoFilter implements Filter {
         HttpServletRequest request = servletRequest as HttpServletRequest
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
+        log.debug("Started sso filter!!!")
         if (isAuthenticated(request)) {
+            log.debug("User is authenticated!!!")
             filterChain.doFilter(servletRequest, servletResponse)
         } else {
+            log.debug("Redirect login!!!")
             httpResponse.sendRedirect(buildCompleteLoginSsoUrl(request))
         }
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
         Cookie secureCookie = findSecureCookie(request.cookies)
+        log.debug("sso.filter - isAuthenticated.secureCookie = " + secureCookie )
         if (!secureCookie) return false
 
         AuthenticateRequest authenticateRequest = authenticateRequestFactory.create(request, secureCookie.value)
         AuthenticateResponse authenticateResponse = authenticateSender.send(authenticateRequest)
+
+        log.debug("ssoFilter authenticated response = " + authenticateResponse)
         authenticateResponse.isAuthenticated()
     }
 
@@ -59,7 +67,8 @@ class SsoFilter implements Filter {
     private String buildEncodedServiceUrl(HttpServletRequest request) {
         String url = request.getRequestURL().toString();
         String queryString = request.getQueryString();
-        URLEncoder.encode(url + "?" + queryString, "UTF-16")
+        String fullUrl = queryString ? url + "?" + queryString : url
+        URLEncoder.encode(fullUrl, "UTF-16")
     }
 
     void destroy() {

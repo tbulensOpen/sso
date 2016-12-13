@@ -25,7 +25,7 @@
     <context:component-scan base-package="org.tbulens.sso.testapp"/>
 
     <bean id="ssoFilter" class="org.tbulens.sso.filter.SsoFilter">
-        <property name="ssoLoginUrlPrefix" value="http://localhost:8081"/>
+        <property name="ssoLoginUrlPrefix" value="http://localhost:8081/sso"/>
         <property name="authenticateSender" ref="authenticateSender"/>
     </bean>
 

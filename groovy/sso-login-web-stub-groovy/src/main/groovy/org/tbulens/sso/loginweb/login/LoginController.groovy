@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired CredentialFactory credentialFactory
     @Autowired LoginValidator loginValidator
     String cookieDomain = 'localhost'
-    String cookieContextRoot = 'sso'
+    String cookieContextRoot = '/sso'
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
     Logger logger = Logger.getLogger(this.class.name)
 
@@ -45,7 +45,6 @@ public class LoginController {
         boolean isValid = loginValidator.validate(loginForm, errors)
 
         String serviceUrl = request.getParameter("serviceUrl")
-        println serviceUrl
         logger.debug( "${loginForm.username} - ${loginForm.password}")
         logger.debug("is valid = ${isValid} +  serviceUrl = " + serviceUrl)
 
@@ -61,8 +60,9 @@ public class LoginController {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
             credentialFactory.setAuthentication(loginForm.username,[authority])
             ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
+
             loginForm.clear()
-            return "redirect:${loginResponse.originalServiceUrl}"
+            return response.sendRedirect(loginResponse.originalServiceUrl)
         }
         "login"
     }

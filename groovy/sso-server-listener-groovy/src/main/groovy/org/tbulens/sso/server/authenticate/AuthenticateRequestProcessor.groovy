@@ -10,13 +10,13 @@ import org.tbulens.sso.client.util.JsonUtil
 class AuthenticateRequestProcessor {
     @Autowired AuthenticateService authenticateService
     JsonUtil jsonUtil = new JsonUtil()
-    Logger log = Logger.getLogger(this.class)
+    Logger log = Logger.getLogger(this.class.name)
 
     @RabbitListener(queues = "authenticate")
     String process(String authenticateRequestJson) {
         Map<String, Object> authenticateRequestMap = jsonUtil.fromJson(authenticateRequestJson, Map.class) as Map<String, Object>
 
-        log.debug "authRequestMap: " + authenticateRequestMap
+        log.debug("authRequestMap: " + authenticateRequestMap)
         authenticateService.process(authenticateRequestMap).toJson()
     }
 }

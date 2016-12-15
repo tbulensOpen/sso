@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServletRequest
 class LoginRequestFactory {
 
     LoginRequest create(HttpServletRequest request, String serviceUrl) {
-        String sessionId = request.session.id
         String userId = request.getParameter("username")
 
         LoginRequest loginRequest = new LoginRequest()
         loginRequest.userId = userId
-        loginRequest.sessionId = sessionId
         loginRequest.originalServiceUrl = serviceUrl
         loginRequest
     }

@@ -38,7 +38,6 @@ class AuthenticateSenderImplTest {
         LoginResponse loginResponse = loginSender.send(loginRequest)
 
         authenticateRequest = new AuthenticateRequestBuilder().build()
-        authenticateRequest.sessionId = loginResponse.sessionId
         authenticateRequest.secureCookieId = loginResponse.secureCookieId
         authenticateRequest.requestTicket = loginResponse.requestTicket
         authenticateRequest.originalServiceUrl = loginResponse.originalServiceUrl

@@ -18,7 +18,7 @@ class AuthenticateSenderImpl implements AuthenticateSender {
 
     private String sendAndReceive(String jmsChannel, String route, String json) {
         String response = (String) amqpTemplate.convertSendAndReceive(jmsChannel, route, json);
-        System.out.println(" [.] Got '" + response + "'");
+        System.out.println(" [.] AuthenticateSender Response: '" + response + "'");
         response
     }
 }

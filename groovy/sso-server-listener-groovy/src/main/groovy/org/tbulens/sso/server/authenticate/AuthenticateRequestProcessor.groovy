@@ -16,7 +16,7 @@ class AuthenticateRequestProcessor {
     String process(String authenticateRequestJson) {
         Map<String, Object> authenticateRequestMap = jsonUtil.fromJson(authenticateRequestJson, Map.class) as Map<String, Object>
 
-        log.debug("authRequestMap: " + authenticateRequestMap)
+        log.debug("authRequestJson: " + authenticateRequestJson)
         authenticateService.process(authenticateRequestMap).toJson()
     }
 }

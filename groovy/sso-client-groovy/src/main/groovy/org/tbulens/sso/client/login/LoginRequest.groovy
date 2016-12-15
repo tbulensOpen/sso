@@ -6,7 +6,6 @@ import org.tbulens.sso.client.util.JsonUtil
 @Canonical
 class LoginRequest implements Serializable {
     String userId
-    String sessionId
     String originalServiceUrl
 
     String toJson() {

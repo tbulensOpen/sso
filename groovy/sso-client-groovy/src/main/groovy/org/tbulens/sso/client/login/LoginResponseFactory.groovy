@@ -11,7 +11,6 @@ class LoginResponseFactory {
         loginResponse.requestTicket = loginResponseMap.requestTicket
         loginResponse.originalServiceUrl = loginResponseMap.originalServiceUrl
         loginResponse.secureCookieId = loginResponseMap.secureCookieId
-        loginResponse.sessionId = loginResponseMap.sessionId
         loginResponse.statusId = loginResponseMap.statusId
         loginResponse.userId = loginResponseMap.userId
         loginResponse

@@ -15,7 +15,6 @@ class AuthenticateResponseFactory {
         response.originalServiceUrl = authenticateRequestMap.originalServiceUrl
 
         if (loginTicket) {
-            response.sessionId = loginTicket.sessionId
             response.secureCookieId = loginTicket.secureCookieId
             response.requestTicket = ticketGenerator.generateRequestTicket()
         }

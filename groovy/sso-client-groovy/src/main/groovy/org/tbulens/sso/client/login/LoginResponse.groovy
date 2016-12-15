@@ -12,7 +12,6 @@ class LoginResponse implements Serializable {
 
     String secureCookieId
     String userId
-    String sessionId
     String originalServiceUrl
     int statusId
     String requestTicket

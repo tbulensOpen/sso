@@ -41,7 +41,7 @@ class LoginControllerTest {
         String serviceUrl = "http://localhost:8081/login?arg1=value1&arg2=value2"
         encodedUrl = URLEncoder.encode(serviceUrl, "UTF-16")
 
-        loginRequest = new LoginRequest(sessionId: "sessionId1", userId: "123456", originalServiceUrl: serviceUrl)
+        loginRequest = new LoginRequest(userId: "123456", originalServiceUrl: serviceUrl)
 
         mockResponse = new MockHttpServletResponse()
         mockRequest = new MockHttpServletRequest()
@@ -49,7 +49,7 @@ class LoginControllerTest {
         mockRequest.addParameter("username", loginRequest.userId)
         mockRequest.addParameter("password", "A#b1dddd")
 
-        mockSession = new MockHttpSession(null, loginRequest.sessionId)
+        mockSession = new MockHttpSession(null, "sessionId")
         mockRequest.setSession(mockSession)
 
         mockLoginSender = mock(LoginSender)

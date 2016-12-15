@@ -6,7 +6,6 @@ import org.tbulens.sso.client.login.LoginRequest
 
 class LoginTicketBuilder {
     String secureCookieId = "secureCookieId"
-    String sessionId = "sessionId"
     String userId = "userA"
     Date createDate = new Date()
     Date lastAccessed = new Date()
@@ -16,7 +15,6 @@ class LoginTicketBuilder {
     LoginTicket build() {
         LoginTicket loginTicket = new LoginTicket()
         loginTicket.secureCookieId = secureCookieId
-        loginTicket.sessionId = sessionId
         loginTicket.userId = userId
         loginTicket.createDate = createDate
         loginTicket.lastAccessed = lastAccessed
@@ -27,7 +25,6 @@ class LoginTicketBuilder {
 
     LoginTicketBuilder withAuthenticateRequest(AuthenticateRequest authenticateRequest) {
         secureCookieId = authenticateRequest.secureCookieId
-        sessionId = authenticateRequest.sessionId
         services.clear()
         services.put(authenticateRequest.originalServiceUrl, authenticateRequest.requestTicket)
         this

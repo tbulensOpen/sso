@@ -30,7 +30,6 @@ class LoginTicketFactory {
 
     protected LoginTicket create(Map<String, Object> loginRequestMap, int statusId) {
         String userId = loginRequestMap.userId
-        String sessionId = loginRequestMap.sessionId
         String cookieId = ""
 
         DateTime expirationDate = new DateTime().plusSeconds(Integer.valueOf(ticketExpirationInSeconds))
@@ -45,7 +44,7 @@ class LoginTicketFactory {
         Map<String, String> services = [:]
         services.put(key, requestTicket)
 
-        new LoginTicket(secureCookieId: cookieId, userId: userId, sessionId: sessionId, createDate: new Date(),
+        new LoginTicket(secureCookieId: cookieId, userId: userId, createDate: new Date(),
                 lastAccessed: new Date(), expiredTime: expirationDate.toDate(), services: services)
     }
 
@@ -54,7 +53,6 @@ class LoginTicketFactory {
         LoginTicket ticket = new LoginTicket()
         ticket.secureCookieId = loginTicketMap.secureCookieId
         ticket.userId = loginTicketMap.userId
-        ticket.sessionId = loginTicketMap.sessionId
         ticket.expiredTime = new Date(loginTicketMap.expiredTime)
         ticket.createDate = new Date(loginTicketMap.createDate)
         ticket.lastAccessed = new Date(loginTicketMap.lastAccessed)

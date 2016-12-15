@@ -13,7 +13,6 @@ class AuthenticateResponse implements Serializable {
     @JsonIgnore final static int TICKET_EXPIRED = 4
 
     String secureCookieId
-    String sessionId
     String requestTicket
     int statusId
     String originalServiceUrl

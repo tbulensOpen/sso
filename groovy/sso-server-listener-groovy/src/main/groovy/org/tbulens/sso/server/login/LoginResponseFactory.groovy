@@ -9,7 +9,7 @@ class LoginResponseFactory {
     protected LoginResponse create(LoginTicket loginTicket, int status, Map<String, Object> loginRequestMap) {
 
         new LoginResponse(secureCookieId: loginTicket.secureCookieId, userId: loginTicket.userId,
-                          sessionId: loginTicket.sessionId, originalServiceUrl: loginRequestMap.originalServiceUrl,
+                          originalServiceUrl: loginRequestMap.originalServiceUrl,
                           statusId: status, requestTicket: loginTicket.services[loginRequestMap.originalServiceUrl as String])
     }
 }

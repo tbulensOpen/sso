@@ -32,7 +32,6 @@ class LoginSenderImplTest {
         assert loginResponse.statusId == LoginResponse.VALID_REQUEST
         assert loginResponse.secureCookieId
         assert loginResponse.requestTicket
-        assert loginResponse.sessionId == loginRequest.sessionId
         assert loginResponse.originalServiceUrl == loginRequest.originalServiceUrl
     }
 

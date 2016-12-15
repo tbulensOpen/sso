@@ -11,7 +11,6 @@ class AuthResponseFactory {
 //        Map<String, Object> authResponseMap = jsonUtil.fromJson(authResponseJson)
 //
 //        AuthenticateResponse response = new AuthenticateResponse()
-//        response.sessionId = authResponseMap.sessionId
 //        response.secureCookieId = authResponseMap.secureCookieId
 //        response.statusId = authResponseMap.statusId
 //        response.originalServiceUrl = authResponseMap.originalServiceUrl

@@ -40,7 +40,6 @@ class LoginRequestProcessorTest {
         assert loginResponse.originalServiceUrl == loginRequest.originalServiceUrl
         assert loginResponse.secureCookieId
         assert loginResponse.userId == loginRequest.userId
-        assert loginResponse.sessionId == loginRequest.sessionId
         assert loginResponse.statusId == LoginResponse.VALID_REQUEST
         assert loginResponse.requestTicket.contains("RT_")
 
@@ -51,30 +50,14 @@ class LoginRequestProcessorTest {
     void login_invalid_userAlreadyLogin() {
        loginRequestProcessor.login(loginRequest.toJson())
 
-        loginRequest.sessionId = "secondSession"
         String loginResponse = loginRequestProcessor.login(loginRequest.toJson())
         Map<String, Object> loginResponseMap = jsonSlurper.parseText(loginResponse)
 
         assert loginResponseMap.statusId == LoginResponse.USER_ALREADY_LOGGED_IN
         assert loginResponseMap.userId == loginRequest.userId
-        assert loginResponseMap.sessionId == loginRequest.sessionId
         assert loginResponseMap.originalServiceUrl == loginRequest.originalServiceUrl
         assert !loginResponseMap.requestTicket
         assert !loginResponseMap.secureCookieId
-    }
-
-    @Test
-    void login_invalid() {
-        loginRequest.sessionId = null
-        String loginTicketResult = loginRequestProcessor.login(loginRequest.toJson())
-        def result = jsonSlurper.parseText(loginTicketResult)
-
-        assert result.originalServiceUrl == loginRequest.originalServiceUrl
-        assert !result.secureCookieId
-        assert result.userId == loginRequest.userId
-        assert result.sessionId == loginRequest.sessionId
-        assert result.statusId == LoginResponse.BAD_REQUEST
-        assert !result.requestTicket
     }
 
     private void assertLoginTicket(String secureCookieId) {
@@ -82,7 +65,6 @@ class LoginRequestProcessorTest {
 
         assert loginTicketUpdated.secureCookieId
         assert loginTicketUpdated.userId == loginRequest.userId
-        assert loginTicketUpdated.sessionId == loginRequest.sessionId
         assert loginTicketUpdated.expiredTime
 
         assert loginTicketUpdated.services[loginRequest.originalServiceUrl]

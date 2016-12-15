@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired CredentialFactory credentialFactory
     @Autowired LoginValidator loginValidator
     String cookieDomain = 'localhost'
-    String cookieContextRoot = '/sso'
+    String cookieContextRoot = '/'
     SsoCookieCreator ssoCookieCreator = new SsoCookieCreator()
     Logger logger = Logger.getLogger(this.class.name)
 
@@ -53,17 +53,24 @@ public class LoginController {
             return "login"
         }
 
+        LoginResponse loginResponse = processloginRequest(request, serviceUrl)
+
+        if (!loginResponse.isLoggedIn()) return "login"
+
+        response.sendRedirect(processSuccessfulLogin(loginForm, response, loginResponse))
+    }
+
+    private String processSuccessfulLogin(LoginForm loginForm, HttpServletResponse response, LoginResponse loginResponse) {
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
+        credentialFactory.setAuthentication(loginForm.username, [authority])
+        ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
+
+        loginForm.clear()
+        loginResponse.originalServiceUrl
+    }
+
+    private LoginResponse processloginRequest(HttpServletRequest request, String serviceUrl) {
         LoginRequest loginRequest = loginRequestFactory.create(request, serviceUrl)
-        LoginResponse loginResponse = loginSender.send(loginRequest)
-
-        if (loginResponse.isLoggedIn()) {
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_TESTAPP")
-            credentialFactory.setAuthentication(loginForm.username,[authority])
-            ssoCookieCreator.create(response, loginResponse.secureCookieId, cookieDomain, cookieContextRoot)
-
-            loginForm.clear()
-            return response.sendRedirect(loginResponse.originalServiceUrl)
-        }
-        "login"
+        loginSender.send(loginRequest)
     }
 }

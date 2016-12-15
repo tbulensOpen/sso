@@ -23,4 +23,21 @@ class LoginResponse implements Serializable {
     boolean isLoggedIn() {
         statusId == VALID_REQUEST
     }
+
+    String getStatusMessage() {
+        switch (statusId) {
+            case VALID_REQUEST:
+                null
+                break
+            case BAD_REQUEST:
+                "Invalid credentials."
+                break
+            case USER_ALREADY_LOGGED_IN:
+                "Already logged in."
+                break
+            default:
+                "Status Unkown."
+                break
+        }
+    }
 }

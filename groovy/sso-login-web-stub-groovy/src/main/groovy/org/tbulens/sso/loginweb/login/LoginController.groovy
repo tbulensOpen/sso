@@ -50,12 +50,16 @@ public class LoginController {
 
         if (!isValid) {
             loginForm.clear()
+            model.addAttribute("loginErrorMsg", "Wrong user or password")
             return "login"
         }
 
         LoginResponse loginResponse = processloginRequest(request, serviceUrl)
 
-        if (!loginResponse.isLoggedIn()) return "login"
+        if (!loginResponse.isLoggedIn()) {
+            model.addAttribute("loginErrorMsg", loginResponse.getStatusMessage())
+            return "login"
+        }
 
         response.sendRedirect(processSuccessfulLogin(loginForm, response, loginResponse))
     }

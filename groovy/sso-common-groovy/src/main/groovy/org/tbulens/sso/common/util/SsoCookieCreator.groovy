@@ -14,6 +14,7 @@ class SsoCookieCreator {
         cookie.setHttpOnly(true)
         cookie.setSecure(false)
         cookie.setDomain(domain)
+        cookie.setMaxAge(-1)
         cookie.setPath(ssoContextRoot)
         response.addCookie(cookie)
     }

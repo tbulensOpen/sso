@@ -32,9 +32,12 @@ public class LoginController {
     @RequestMapping(value = '/login', method = RequestMethod.GET)
     String login(HttpServletRequest request, ModelMap model) {
         String queryString = request.getQueryString()
-        String encodedServiceUrl = queryString.substring(8)
-        String serviceUrl = URLDecoder.decode(encodedServiceUrl, "UTF-16")
-        model.addAttribute("serviceUrl", serviceUrl)
+
+        if (queryString) {
+            String encodedServiceUrl = queryString.substring(8)
+            String serviceUrl = URLDecoder.decode(encodedServiceUrl, "UTF-16")
+            model.addAttribute("serviceUrl", serviceUrl)
+        }
         "login"
     }
 

@@ -10,7 +10,7 @@ class ContextLoadingTest {
     @Test
     void loadContext() {
         ApplicationContext context =
-                new GenericXmlApplicationContext("classpath:/contexts/application-context.xml");
+                new GenericXmlApplicationContext("classpath:/contexts/login-application-context.xml");
         assert context.getBean("loginSender")
     }
 }

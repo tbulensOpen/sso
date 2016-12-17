@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ImportResource
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-@ImportResource("classpath:contexts/application-context.xml")
+@ImportResource("classpath:contexts/login-application-context.xml")
 public class Application {
     
     public static void main(String[] args) {

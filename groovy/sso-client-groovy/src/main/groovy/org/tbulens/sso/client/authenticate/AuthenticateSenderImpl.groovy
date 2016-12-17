@@ -1,8 +1,6 @@
 package org.tbulens.sso.client.authenticate
 
 import org.springframework.amqp.core.AmqpTemplate
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
 class AuthenticateSenderImpl implements AuthenticateSender {
 

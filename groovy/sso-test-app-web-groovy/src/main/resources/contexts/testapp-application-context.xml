@@ -29,4 +29,9 @@
         <property name="authenticateSender" ref="authenticateSender"/>
     </bean>
 
+    <bean id="ssoLogoutFilter" class="org.tbulens.sso.filter.SsoLogoutFilter">
+        <property name="ssoLoginUrlPrefix" value="http://localhost:8080/sso"/>
+        <property name="ssoLogoutUrlPrefix" value="http://localhost:8082/sso"/>
+    </bean>
+
 </beans>

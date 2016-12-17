@@ -19,17 +19,17 @@ class LogoutController {
     @Autowired LogoutSender logoutSender
 
     @RequestMapping(value = '/logout', method = RequestMethod.GET)
-    String logout(@RequestParam("loginUrl") String loginUrl, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+    String logout(@RequestParam("loginUrl") String encodedLoginUrl, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = findSecureCookie(request.cookies)
 
         if (cookie) {
             cookie?.setMaxAge(0)  // expire cookie
-            LogoutRequest logoutRequest = new LogoutRequest(secureCookieId: cookie.value, loginUrl: loginUrl)
+            LogoutRequest logoutRequest = new LogoutRequest(secureCookieId: cookie.value)
             logoutSender.send(logoutRequest)
         }
 
         request.session.invalidate()
-        model.addAttribute("loginUrl", loginUrl)
+        model.addAttribute("loginUrl", encodedLoginUrl)
         "logout"
     }
 

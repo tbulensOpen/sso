@@ -5,7 +5,6 @@ import org.tbulens.sso.client.util.JsonUtil
 
 class LogoutRequest implements Serializable {
     String secureCookieId
-    String loginUrl
 
 
     String toJson() {

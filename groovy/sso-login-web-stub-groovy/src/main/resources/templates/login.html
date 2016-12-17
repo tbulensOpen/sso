@@ -6,7 +6,7 @@
 <body>
 <h1>Login page</h1>
 <p>
-    <span>th:if="${#loginErrorMsg != null}" class="error" th:text="${loginErrorMsg}"></span>
+    <span>th:if="${loginErrorMsg != null}" class="error" th:text="${loginErrorMsg}"></span>
 </p>
 <form th:action="@{/login}" method="post" commandName="loginForm" autocomplete="off" th:object="${serviceUrl}">
     <!--<p th:if="${#fields.hasErrors('all')}" th:errors="*{all}">Invalid Credentials</p>-->

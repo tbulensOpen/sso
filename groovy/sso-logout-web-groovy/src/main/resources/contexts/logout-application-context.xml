@@ -16,13 +16,13 @@
 
     <context:annotation-config/>
 
-    <!--<bean id="authenticateSender" class="org.tbulens.sso.client.logout.LogoutSenderImpl">-->
-        <!--<property name="logoutQueueChannel" value="sso.rpc"/>-->
-        <!--<property name="logoutQueue" value="logout"/>-->
-        <!--<property name="amqpTemplate" ref="amqpTemplate"/>-->
-    <!--</bean>-->
+    <bean id="logoutSender" class="org.tbulens.sso.client.logout.LogoutSenderImpl">
+        <property name="logoutQueueChannel" value="sso.rpc"/>
+        <property name="logoutQueue" value="logout"/>
+        <property name="amqpTemplate" ref="amqpTemplate"/>
+    </bean>
 
+    <context:component-scan base-package="org.tbulens.sso.client.logout"/>
     <context:component-scan base-package="org.tbulens.sso.logout"/>
-
 
 </beans>

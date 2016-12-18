@@ -10,6 +10,10 @@
 </p>
 <form th:action="@{/login}" method="post" commandName="loginForm" autocomplete="off" th:object="${serviceUrl}">
     <!--<p th:if="${#fields.hasErrors('all')}" th:errors="*{all}">Invalid Credentials</p>-->
+    <span>User Name and Password Rules</span><br />
+    <span>UserName: a-z, A-Z, 0-9, max 15 chars, min 6 chars</span><br />
+    <span>Password: At least 8 chars, min 1 digit, min 1 upper char, min 1 lower char, min 1 special character</span><br />
+    <br />
     <label for="username">Username</label>:
     <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
     <label for="password">Password</label>:

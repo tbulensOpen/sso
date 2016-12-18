@@ -13,7 +13,6 @@ class LoginRequestProcessor {
     Logger logger = Logger.getLogger(this.class.name)
 
     @RabbitListener(queues = "login")
-    // @SendTo("login.rpc.replies") used when the client doesn't set replyTo.
     String login(String loginRequestJson) {
         logger.debug("Login Processor recieved request = " + loginRequestJson)
         Map<String, Object> loginRequestMap = jsonUtil.fromJson(loginRequestJson, Map.class)

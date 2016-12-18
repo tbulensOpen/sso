@@ -5,7 +5,8 @@
 </head>
 <body>
 <h1>Logout page</h1>
-<span>Your are currently logged out.</span><a th:href="@{$loginUrl}">Log in</a>
+<span>Your are currently logged out.</span><a th:href="@{~/sso/login}">Log in</a>
+<input type="hidden" name="loginUrl" th:value="@{loginUrl}">
 </body>
 </body>
 </html>

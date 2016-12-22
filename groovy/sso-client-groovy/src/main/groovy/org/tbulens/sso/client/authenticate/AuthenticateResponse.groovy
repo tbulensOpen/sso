@@ -2,6 +2,7 @@ package org.tbulens.sso.client.authenticate
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.Canonical
+import org.tbulens.sso.client.SsoJwtToken
 import org.tbulens.sso.client.util.JsonUtil
 
 @Canonical
@@ -12,8 +13,7 @@ class AuthenticateResponse implements Serializable {
     @JsonIgnore final static int NOT_AUTHORIZED_SECURITY_VIOLATION = 3
     @JsonIgnore final static int TICKET_EXPIRED = 4
 
-    String secureCookieId
-    String requestTicket
+    SsoJwtToken ssoJwtToken
     int statusId
     String originalServiceUrl
 

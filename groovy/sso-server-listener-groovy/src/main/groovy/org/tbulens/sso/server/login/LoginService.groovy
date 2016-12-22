@@ -1,6 +1,7 @@
 package org.tbulens.sso.server.login
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.server.logout.LogoutRepository
@@ -22,12 +23,12 @@ class LoginService {
         if (status == LoginResponse.VALID_REQUEST) {
             saveUser(loginTicket)
         }
-        return loginResponseFactory.create(loginTicket, status, loginRequestMap)
+        loginResponseFactory.create(loginTicket, status, loginRequestMap)
     }
 
     private void saveUser(LoginTicket loginTicket) {
-        redisUtil.push(loginTicket.secureCookieId, loginTicket.toJson())
-        redisUtil.push(loginTicket.userId, loginTicket.secureCookieId)
+        redisUtil.push(loginTicket.ssoJwtToken.secureCookieId, loginTicket.toJson())
+        redisUtil.push(loginTicket.ssoJwtToken.userId, loginTicket.ssoJwtToken.secureCookieId)
 
     }
 

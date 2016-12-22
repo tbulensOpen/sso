@@ -1,6 +1,7 @@
 package org.tbulens.sso.server.login
 
 import org.springframework.stereotype.Component
+import org.tbulens.sso.client.SsoJwtToken
 import org.tbulens.sso.client.login.LoginResponse
 
 @Component
@@ -8,8 +9,9 @@ class LoginResponseFactory {
 
     protected LoginResponse create(LoginTicket loginTicket, int status, Map<String, Object> loginRequestMap) {
 
-        new LoginResponse(secureCookieId: loginTicket.secureCookieId, userId: loginTicket.userId,
-                          originalServiceUrl: loginRequestMap.originalServiceUrl,
-                          statusId: status, requestTicket: loginTicket.services[loginRequestMap.originalServiceUrl as String])
+        SsoJwtToken ssoJwtToken = new SsoJwtToken(secureCookieId: loginTicket.ssoJwtToken.secureCookieId,
+                                                  userId: loginTicket.ssoJwtToken.userId, requestTicket: null)
+        new LoginResponse(ssoJwtToken: ssoJwtToken, statusId: status,
+                          originalServiceUrl: loginRequestMap.originalServiceUrl)
     }
 }

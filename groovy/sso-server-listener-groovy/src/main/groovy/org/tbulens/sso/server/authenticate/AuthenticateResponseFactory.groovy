@@ -1,6 +1,7 @@
 package org.tbulens.sso.server.authenticate
 
 import org.springframework.stereotype.Component
+import org.tbulens.sso.client.SsoJwtToken
 import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.server.util.TicketGenerator
 import org.tbulens.sso.server.login.LoginTicket
@@ -15,8 +16,9 @@ class AuthenticateResponseFactory {
         response.originalServiceUrl = authenticateRequestMap.originalServiceUrl
 
         if (loginTicket) {
-            response.secureCookieId = loginTicket.secureCookieId
-            response.requestTicket = ticketGenerator.generateRequestTicket()
+            SsoJwtToken token = loginTicket.ssoJwtToken
+            token.requestTicket = ticketGenerator.generateRequestTicket()
+            response.ssoJwtToken = token
         }
         response
     }

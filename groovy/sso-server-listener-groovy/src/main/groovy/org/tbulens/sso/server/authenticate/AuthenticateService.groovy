@@ -28,7 +28,7 @@ class AuthenticateService {
         //todo: convert switch into processors, retrieve processor using a factory
         switch (status) {
             case AuthenticateResponse.AUTHENTICATED:
-                loginTicket.services.put(authenticateRequestMap.originalServiceUrl as String, response.requestTicket)
+                loginTicket.services.put(authenticateRequestMap.originalServiceUrl as String, response.ssoJwtToken.requestTicket)
                 redisUtil.push(secureCookieId, loginTicket.toJson())
                 break
             case AuthenticateResponse.BAD_REQUEST:

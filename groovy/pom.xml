@@ -30,6 +30,11 @@
         <jedis.version>2.9.0</jedis.version>
         <spring-boot-starter-data-redis.version>1.4.2.RELEASE</spring-boot-starter-data-redis.version>
         <joda-time.version>2.9.6</joda-time.version>
+        <jjwt.version>0.7.0</jjwt.version>
+        <spring-test.version>4.3.4.RELEASE</spring-test.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <spring-amqp.version>1.6.5.RELEASE</spring-amqp.version>
+        <spring-data-keyvalue.version>1.1.5.RELEASE</spring-data-keyvalue.version>
     </properties>
 
     <modules>
@@ -124,12 +129,12 @@
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-keyvalue</artifactId>
-                <version>1.1.5.RELEASE</version>
+                <version>${spring-data-keyvalue.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.amqp</groupId>
                 <artifactId>spring-amqp</artifactId>
-                <version>1.6.5.RELEASE</version>
+                <version>${spring-amqp.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.rabbitmq.jms</groupId>
@@ -164,17 +169,17 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
+                <version>${javax.servlet-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>4.3.4.RELEASE</version>
+                <version>${spring-test.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>4.2.0.RELEASE</version>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

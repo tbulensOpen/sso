@@ -20,6 +20,6 @@ class JsonUtilTest {
         String json = jsonUtil.toJson(response)
         Map<String, Object> obj = jsonUtil.fromJson(json, Map.class)
 
-        assert obj["secureCookieId"] == response.secureCookieId
+        assert obj["ssoJwtToken"].secureCookieId == response.ssoJwtToken.secureCookieId
     }
 }

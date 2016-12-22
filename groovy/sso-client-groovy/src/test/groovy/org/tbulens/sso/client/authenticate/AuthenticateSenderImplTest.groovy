@@ -38,12 +38,12 @@ class AuthenticateSenderImplTest {
         LoginResponse loginResponse = loginSender.send(loginRequest)
 
         authenticateRequest = new AuthenticateRequestBuilder().build()
-        authenticateRequest.secureCookieId = loginResponse.secureCookieId
-        authenticateRequest.requestTicket = loginResponse.requestTicket
+        authenticateRequest.secureCookieId = loginResponse.ssoJwtToken.secureCookieId
+        authenticateRequest.requestTicket = loginResponse.ssoJwtToken.requestTicket
         authenticateRequest.originalServiceUrl = loginResponse.originalServiceUrl
 
         AuthenticateResponse response = authenticateSender.send(authenticateRequest)
         assert response.statusId == AuthenticateResponse.AUTHENTICATED
-        assert response.requestTicket != loginResponse.requestTicket
+        assert response.ssoJwtToken.requestTicket != loginResponse.ssoJwtToken.requestTicket
     }
 }

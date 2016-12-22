@@ -12,7 +12,7 @@
     <import resource="classpath:contexts/RedisContext.xml"/>
     <import resource="classpath:contexts/RabbitMqContext.xml"/>
 
-    <context:component-scan base-package="org.tbulens.sso.server"/>
     <context:component-scan base-package="org.tbulens.sso.redis"/>
+    <context:component-scan base-package="org.tbulens.sso.server"/>
 
 </beans>

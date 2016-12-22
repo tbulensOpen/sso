@@ -1,6 +1,7 @@
 package org.tbulens.sso.filter
 
 import org.apache.log4j.Logger
+import org.springframework.web.util.WebUtils
 import org.tbulens.sso.client.authenticate.AuthenticateRequest
 import org.tbulens.sso.client.authenticate.AuthenticateResponse
 import org.tbulens.sso.client.authenticate.AuthenticateSender
@@ -47,7 +48,7 @@ class SsoFilter implements Filter {
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        Cookie secureCookie = findSecureCookie(request.cookies)
+        Cookie secureCookie = WebUtils.getCookie(request, SSO_SESSION_ID)
         log.debug("sso.filter - isAuthenticated.secureCookie = " + secureCookie?.value )
         if (!secureCookie) return false
 
@@ -56,10 +57,6 @@ class SsoFilter implements Filter {
 
         log.debug("ssoFilter authenticated response = " + authenticateResponse)
         authenticateResponse.isAuthenticated()
-    }
-
-    private Cookie findSecureCookie(Cookie[] cookies) {
-        cookies.find { it.name == SSO_SESSION_ID }
     }
 
     private String buildCompleteLoginSsoUrl(HttpServletRequest request) {

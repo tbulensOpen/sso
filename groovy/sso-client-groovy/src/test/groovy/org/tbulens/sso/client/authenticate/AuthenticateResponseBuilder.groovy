@@ -1,5 +1,7 @@
 package org.tbulens.sso.client.authenticate
 
+import org.tbulens.sso.client.SsoJwtToken
+
 
 class AuthenticateResponseBuilder {
     String secureCookieId = "secureCookieId"
@@ -9,8 +11,8 @@ class AuthenticateResponseBuilder {
 
     AuthenticateResponse build() {
         AuthenticateResponse response = new AuthenticateResponse()
-        response.secureCookieId = secureCookieId
-        response.requestTicket = requestTicket
+        SsoJwtToken ssoJwtToken = new SsoJwtToken(secureCookieId: secureCookieId, authorities: ['TEST_APP'], requestTicket: requestTicket)
+        response.ssoJwtToken = ssoJwtToken
         response.statusId = statusId
         response.originalServiceUrl = originalServiceUrl
         response

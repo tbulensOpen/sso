@@ -1,4 +1,4 @@
-package org.tbulens.sso.loginweb.login
+package org.tbulens.sso.client.login
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority

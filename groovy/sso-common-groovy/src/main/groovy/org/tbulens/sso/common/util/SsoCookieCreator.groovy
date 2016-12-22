@@ -9,8 +9,8 @@ class SsoCookieCreator {
 
     static final String SSO_SESSION_ID = "ssoSessionId"
 
-    void create(HttpServletResponse response, String secureCookieId, String domain, String ssoContextRoot) {
-        Cookie cookie = new Cookie(SSO_SESSION_ID, secureCookieId)
+    void create(HttpServletResponse response, String ssoJwtTokenJson, String domain, String ssoContextRoot) {
+        Cookie cookie = new Cookie(SSO_SESSION_ID, ssoJwtTokenJson)
         cookie.setHttpOnly(true)
         cookie.setSecure(false)
         cookie.setDomain(domain)

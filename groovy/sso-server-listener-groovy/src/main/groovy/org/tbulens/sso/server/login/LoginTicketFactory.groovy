@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import org.tbulens.sso.client.SsoJwtToken
 import org.tbulens.sso.client.login.LoginResponse
 import org.tbulens.sso.client.util.JsonUtil
 import org.tbulens.sso.server.util.DateConverter
@@ -44,18 +45,20 @@ class LoginTicketFactory {
         Map<String, String> services = [:]
         services.put(key, requestTicket)
 
-        new LoginTicket(secureCookieId: cookieId, userId: userId, createDate: new Date(),
+        SsoJwtToken ssoJwtToken = new SsoJwtToken(userId:  userId, secureCookieId: cookieId,
+                                                  authorities: loginRequestMap.authorities as List<String>,
+                                                  requestTicket: requestTicket)
+
+        new LoginTicket(ssoJwtToken: ssoJwtToken, createDate: new Date(),
                 lastAccessed: new Date(), expiredTime: expirationDate.toDate(), services: services)
     }
 
-
     private LoginTicket createFromJsonMap(Map<String, Object> loginTicketMap) {
         LoginTicket ticket = new LoginTicket()
-        ticket.secureCookieId = loginTicketMap.secureCookieId
-        ticket.userId = loginTicketMap.userId
-        ticket.expiredTime = new Date(loginTicketMap.expiredTime)
-        ticket.createDate = new Date(loginTicketMap.createDate)
-        ticket.lastAccessed = new Date(loginTicketMap.lastAccessed)
+        ticket.ssoJwtToken = loginTicketMap.ssoJwtToken as SsoJwtToken
+        ticket.expiredTime = new Date(loginTicketMap.expiredTime as long)
+        ticket.createDate = new Date(loginTicketMap.createDate as long)
+        ticket.lastAccessed = new Date(loginTicketMap.lastAccessed as long)
         ticket.services = loginTicketMap.services as Map<String, String>
         ticket
     }

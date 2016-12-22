@@ -1,5 +1,6 @@
 package org.tbulens.sso.server.login
 
+import org.tbulens.sso.client.SsoJwtToken
 import org.tbulens.sso.client.authenticate.AuthenticateRequest
 import org.tbulens.sso.client.login.LoginRequest
 
@@ -14,8 +15,8 @@ class LoginTicketBuilder {
 
     LoginTicket build() {
         LoginTicket loginTicket = new LoginTicket()
-        loginTicket.secureCookieId = secureCookieId
-        loginTicket.userId = userId
+        SsoJwtToken ssoJwtToken = new SsoJwtToken(secureCookieId: secureCookieId, userId: userId)
+        loginTicket.ssoJwtToken = ssoJwtToken
         loginTicket.createDate = createDate
         loginTicket.lastAccessed = lastAccessed
         loginTicket.expiredTime = expiredTime

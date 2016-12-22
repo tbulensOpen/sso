@@ -19,7 +19,7 @@ class LogoutRepository {
     }
 
     void logout(LoginTicket loginTicket) {
-        redisUtil.delete(loginTicket.secureCookieId)
-        redisUtil.delete(loginTicket.userId)
+        redisUtil.delete(loginTicket.ssoJwtToken.secureCookieId)
+        redisUtil.delete(loginTicket.ssoJwtToken.userId)
     }
 }

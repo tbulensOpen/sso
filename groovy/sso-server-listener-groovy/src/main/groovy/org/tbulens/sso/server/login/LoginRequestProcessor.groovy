@@ -9,6 +9,7 @@ import org.tbulens.sso.client.util.JsonUtil
 @Component
 class LoginRequestProcessor {
     @Autowired LoginService loginService
+
     JsonUtil jsonUtil = new JsonUtil()
     Logger logger = Logger.getLogger(this.class.name)
 
